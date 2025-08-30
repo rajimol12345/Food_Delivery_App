@@ -1,0 +1,103 @@
+.checkout-container {
+  padding: 2rem;
+  max-width: 1000px;
+  margin: auto;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.checkout-title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #fc8019;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.checkout-grid {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.checkout-form {
+  flex: 1;
+  min-width: 280px;
+  display: flex;
+  flex-direction: column;
+}
+
+.checkout-form h4 {
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.checkout-form input {
+  padding: 10px;
+  margin-bottom: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.checkout-summary {
+  flex: 1;
+  min-width: 280px;
+  background: #fff8f1;
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #fc8019;
+}
+
+.checkout-summary h4 {
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.checkout-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px dashed #ccc;
+}
+
+.checkout-total {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  padding-top: 10px;
+  margin-top: 10px;
+  border-top: 2px solid #fc8019;
+}
+
+.checkout-total .price {
+  color: green;
+}
+
+.checkout-btn {
+  background-color: #fc8019;
+  color: white;
+  border: none;
+  width: 100%;
+  padding: 12px;
+  font-size: 1rem;
+  border-radius: 8px;
+  margin-top: 20px;
+  cursor: pointer;
+}
+
+.checkout-btn:hover {
+  background-color: #e46d0a;
+}
+
+.checkout-message {
+  padding: 2rem;
+  text-align: center;
+  font-size: 1.2rem;
+}
+
+.checkout-message.success {
+  color: green;
+}
+
+.checkout-message.error {
+  color: red;
+}

@@ -1,0 +1,72 @@
+[
+  {
+    "id": 1,
+    "name": "Chocolate Cake",
+    "description": "Rich and moist",
+    "price": 6.99,
+   "image": "https://images.unsplash.com/photo-1586190848861-99aa4a171e90"
+  },
+  {
+    "id": 2,
+    "name": "Spaghetti",
+    "description": "Creamy Alfredo pasta",
+    "price": 9.99,
+    "image": "https://images.unsplash.com/photo-1586190848861-99aa4a171e90"
+  },
+  {
+    "id": 2,
+    "name": "Spaghetti",
+    "description": "Creamy Alfredo pasta",
+    "price": 9.99,
+    "image": "https://images.unsplash.com/photo-1586190848861-99aa4a171e90"
+  },
+  {
+    "id": 2,
+    "name": "Spaghetti",
+    "description": "Creamy Alfredo pasta",
+    "price": 9.99,
+    "image": "https://images.unsplash.com/photo-1586190848861-99aa4a171e90"
+  },
+  {
+    "id": 2,
+    "name": "Spaghetti",
+    "description": "Creamy Alfredo pasta",
+    "price": 9.99,
+    "image": "https://images.unsplash.com/photo-1586190848861-99aa4a171e90"
+  },
+  {
+    "id": 2,
+    "name": "Spaghetti",
+    "description": "Creamy Alfredo pasta",
+    "price": 9.99,
+    "image": "https://images.unsplash.com/photo-1586190848861-99aa4a171e90"
+  },
+  {
+    "id": 2,
+    "name": "Spaghetti",
+    "description": "Creamy Alfredo pasta",
+    "price": 9.99,
+    "image": "https://images.unsplash.com/photo-1586190848861-99aa4a171e90"
+  },
+  {
+    "id": 2,
+    "name": "Spaghetti",
+    "description": "Creamy Alfredo pasta",
+    "price": 9.99,
+    "image": "https://images.unsplash.com/photo-1586190848861-99aa4a171e90"
+  },
+  {
+    "id": 2,
+    "name": "Spaghetti",
+    "description": "Creamy Alfredo pasta",
+    "price": 9.99,
+    "image": "https://images.unsplash.com/photo-1586190848861-99aa4a171e90"
+  },
+  {
+    "id": 2,
+    "name": "Spaghetti",
+    "description": "Creamy Alfredo pasta",
+    "price": 9.99,
+    "image": "https://images.unsplash.com/photo-1586190848861-99aa4a171e90"
+  }
+]

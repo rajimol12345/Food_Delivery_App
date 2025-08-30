@@ -1,0 +1,104 @@
+/* PaymentPage.css */
+
+.payment-container {
+  max-width: 700px;
+  margin: 40px auto;
+  padding: 25px;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+}
+
+.payment-title {
+  text-align: center;
+  font-size: 26px;
+  font-weight: 600;
+  margin-bottom: 25px;
+  color: #222;
+}
+
+.payment-section {
+  margin-bottom: 25px;
+  padding: 15px;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  background: #fafafa;
+}
+
+.payment-section h4 {
+  margin-bottom: 15px;
+  font-size: 18px;
+  font-weight: 500;
+  color: #444;
+}
+
+.payment-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px dashed #ddd;
+  font-size: 15px;
+}
+
+.payment-item:last-child {
+  border-bottom: none;
+}
+
+.payment-total {
+  margin-top: 15px;
+  font-size: 17px;
+  font-weight: 600;
+  text-align: right;
+  color: #111;
+}
+
+.payment-section label {
+  display: block;
+  margin: 10px 0;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.payment-section input[type="radio"] {
+  margin-right: 8px;
+}
+
+.payment-button {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.25s ease;
+}
+
+.payment-button:hover {
+  background: #1d4ed8;
+}
+
+.paypal-btn {
+  margin-top: 15px;
+}
+
+@media (max-width: 600px) {
+  .payment-container {
+    margin: 20px;
+    padding: 20px;
+  }
+
+  .payment-title {
+    font-size: 22px;
+  }
+
+  .payment-button {
+    font-size: 15px;
+    padding: 10px;
+  }
+}

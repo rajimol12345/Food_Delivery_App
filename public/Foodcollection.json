@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "name": "Pizza",
+    "image": "/images/pizza.jpg",
+    "category": "Main"
+  },
+  {
+    "id": 2,
+    "name": "Burger",
+    "image": "/images/chocolate.jpg",
+    "category": "Main"
+  },
+  {
+    "id": 3,
+    "name": "Desserts",
+    "image": "/images/dessert.jpg",
+    "category": "Sweet"
+  },
+  {
+    "id": 4,
+    "name": "Pasta",
+    "image": "/images/pasta.png",
+    "category": "Main"
+  },
+  {
+    "id": 5,
+    "name": "Salad",
+    "image": "/images/salad.jpg",
+    "category": "Healthy"
+  }
+]

@@ -1,0 +1,123 @@
+[
+  {
+    "image":"/images/Banner of Spice Villa.png",
+    "name": "Spice Villa",
+    "address": "123 Main Street, Mumbai",
+    "phone": "+91 9876543210",
+    "cuisine": "Indian",
+    "email": "contact@spicevilla.com",
+    "rating": 4.5,
+    "openingHours": "10:00 AM - 11:00 PM",
+    "history": "Spice Villa was founded in 2005 to bring traditional Indian flavors to a modern audience.",
+    "offers": [
+      "10% off on orders above ₹500",
+      "Free dessert with every main course on weekends"
+    ]
+    
+  },
+  {
+    "image": "/images/Pastapalace.avif",
+    "name": "Pasta Place",
+    "address": "456 Olive Road, Delhi",
+    "phone": "+91 9123456789",
+    "cuisine": "Italian",
+    "email": "contact@pastaplace.com",
+    "rating": 4.3,
+    "openingHours": "11:00 AM - 10:00 PM",
+    "history": "Pasta Place opened in 2010 to bring authentic Italian cuisine to India using imported ingredients and traditional recipes.",
+    "offers": [
+      "Buy 1 Get 1 Free on Pasta Tuesdays",
+      "Free garlic bread with every order above ₹600"
+    ]
+  },
+   {
+    "image": "/images/sushi world.jpg",
+    "name": "Sushi World",
+    "address": "789 Sakura Lane, Bangalore",
+    "phone": "+91 9988776655",
+    "cuisine": "Japanese",
+    "email": "hello@sushiworld.in",
+    "rating": 4.8,
+    "openingHours": "12:00 PM - 10:00 PM",
+    "history": "Sushi World brings authentic Japanese sushi culture to Bangalore with precision and passion since 2012.",
+    "offers": [
+      "Free miso soup with every sushi platter",
+      "Buy 1 Get 1 on select rolls (Monday only)"
+    ]
+    },
+  {
+  "image": "/images/buger hub.jpg",
+  "name": "The Burger Hub",
+  "address": "321 King Street, Chennai",
+  "phone": "+91 9876543211",
+  "cuisine": "American",
+  "email": "contact@burgerhub.com",
+  "rating": 4.0,
+  "openingHours": "10:00 AM - 12:00 AM",
+  "history": "Founded in 2010, The Burger Hub has become a staple in Chennai for American-style gourmet burgers.",
+  "offers": [
+    "Buy 1 Get 1 Free every Tuesday",
+    "Free fries with every large burger combo"
+  ]
+},
+{
+  "image": "/images/Restaurant cafe.jpg",
+  "name": "Madras Cafe",
+  "address": "45 NSK Salai, Chennai, Tamil Nadu",
+  "phone": "+91 9840123456",
+  "cuisine": "South Indian",
+  "email": "contact@madrascafe.in",
+  "rating": 4.3,
+  "openingHours": "8:00 AM - 10:00 PM",
+  "history": "Madras Cafe has served authentic South Indian dishes since 1998. With its traditional décor and homely food, it's a favorite breakfast spot for locals.",
+  "offers": [
+    "Free filter coffee with breakfast combo",
+    "15% off on all meals before 10 AM"
+  ]
+},
+{
+  "image": "/images/Anjappar.jpg",
+  "name": "Anjappar Chettinad Restaurant",
+  "address": "20 Ranganathan Street, Coimbatore, Tamil Nadu",
+  "phone": "+91 9876543210",
+  "cuisine": "Chettinad",
+  "email": "info@anjappar.com",
+  "rating": 4.5,
+  "openingHours": "11:00 AM - 11:00 PM",
+  "history": "Established in 1964, Anjappar has become a global name for authentic Chettinad cuisine. It’s known for bold spices and traditional recipes.",
+  "offers": [
+    "Free starter on orders above ₹800",
+    "Buy 2 get 1 free on Chettinad Chicken during weekdays"
+  ]
+},
+{
+  "image": "/images/sangeetha.jpg",
+  "name": "Sangeetha Veg Restaurant",
+  "address": "12 MG Road, Madurai, Tamil Nadu",
+  "phone": "+91 9123456780",
+  "cuisine": "South Indian, Vegetarian",
+  "email": "hello@sangeetharestaurant.in",
+  "rating": 4.2,
+  "openingHours": "7:30 AM - 10:30 PM",
+  "history": "Sangeetha Veg Restaurant has been serving wholesome vegetarian meals rooted in South Indian tradition for over three decades. Known for clean dining and consistent taste, it's a local favorite.",
+  "offers": [
+    "Combo Breakfast at ₹99 till 10 AM",
+    "20% off on weekend lunch thali"
+  ]
+},
+{
+  "image": "/images/thalapakkati.jpg",
+  "name": "Dindigul Thalappakatti",
+  "address": "88 Race Course Road, Tiruchirappalli, Tamil Nadu",
+  "phone": "+91 9444001122",
+  "cuisine": "Biryani, South Indian",
+  "email": "contact@thalappakatti.com",
+  "rating": 4.6,
+  "openingHours": "10:00 AM - 11:00 PM",
+  "history": "Founded in 1957, Dindigul Thalappakatti is a legendary biryani brand known for its authentic Dindigul-style biryani made with Seeraga Samba rice and secret spice blends.",
+  "offers": [
+    "Buy 2 Chicken Biryani, Get 1 Free (Mon–Thu)",
+    "Flat 15% off on all family packs"
+  ]
+}
+]

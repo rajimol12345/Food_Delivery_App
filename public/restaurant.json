@@ -1,0 +1,82 @@
+[
+  {
+    "image":"/images/Banner of Spice Villa.png",
+    "name": "Spice Villa",
+    "address": "123 Main Street, Mumbai",
+    "phone": "+91 9876543210",
+    "cuisine": "Indian",
+    "email": "contact@spicevilla.com",
+    "rating": 4.5,
+    "openingHours": "10:00 AM - 11:00 PM"
+  },
+  {
+    "image": "/images/Pastapalace.avif",
+    "name": "Pasta Palace",
+    "address": "456 Olive Road, Delhi",
+    "phone": "+91 9123456789",
+    "cuisine": "Italian",
+    "email": "info@pastapalace.in",
+    "rating": 4.2,
+    "openingHours": "11:30 AM - 10:30 PM"
+  },
+  {
+    "image": "/images/sushi world.jpg",
+    "name": "Sushi World",
+    "address": "789 Sakura Lane, Bangalore",
+    "phone": "+91 9988776655",
+    "cuisine": "Japanese",
+    "email": "hello@sushiworld.in",
+    "rating": 4.8,
+    "openingHours": "12:00 PM - 10:00 PM"
+  },
+  {
+    "image": "/images/buger hub.jpg",
+    "name": "The Burger Hub",
+    "address": "321 King Street, Chennai",
+    "phone": "+91 9876543211",
+    "cuisine": "American",
+    "email": "contact@burgerhub.com",
+    "rating": 4.0,
+    "openingHours": "10:00 AM - 12:00 AM"
+  },
+  {
+    "image": "/images/Restaurant cafe.jpg",
+    "name": "Madras Cafe",
+    "address": "45 NSK Salai, Chennai, Tamil Nadu",
+    "phone": "+91 9840123456",
+    "cuisine": "South Indian",
+    "email": "contact@madrascafe.in",
+    "rating": 4.3,
+    "openingHours": "8:00 AM - 10:00 PM"
+  },
+  {
+    "image": "/images/Anjappar.jpg",
+    "name": "Anjappar Chettinad Restaurant",
+    "address": "20 Ranganathan Street, Coimbatore, Tamil Nadu",
+    "phone": "+91 9876543210",
+    "cuisine": "Chettinad",
+    "email": "info@anjappar.com",
+    "rating": 4.5,
+    "openingHours": "11:00 AM - 11:00 PM"
+  },
+  {
+    "image": "/images/sangeetha.jpg",
+    "name": "Sangeetha Veg Restaurant",
+    "address": "12 MG Road, Madurai, Tamil Nadu",
+    "phone": "+91 9123456780",
+    "cuisine": "South Indian, Vegetarian",
+    "email": "hello@sangeetharestaurant.in",
+    "rating": 4.2,
+    "openingHours": "7:30 AM - 10:30 PM"
+  },
+  {
+    "image": "/images/thalapakkati.jpg",
+    "name": "Dindigul Thalappakatti",
+    "address": "88 Race Course Road, Tiruchirappalli, Tamil Nadu",
+    "phone": "+91 9444001122",
+    "cuisine": "Biryani, South Indian",
+    "email": "contact@thalappakatti.com",
+    "rating": 4.6,
+    "openingHours": "10:00 AM - 11:00 PM"
+  }
+]

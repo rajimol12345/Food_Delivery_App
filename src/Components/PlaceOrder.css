@@ -1,0 +1,50 @@
+.placeorder-container {
+  max-width: 800px;
+  margin: auto;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 10px;
+}
+
+.placeorder-box {
+  display: grid;
+  gap: 1.5rem;
+  background: #f9f9f9;
+  padding: 1rem;
+  border-radius: 10px;
+}
+
+.placeorder-section {
+  padding: 1rem;
+  background: #fff;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+.placeorder-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.placeorder-total {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  margin-top: 1rem;
+}
+
+.placeorder-btn {
+  margin-top: 2rem;
+  padding: 0.75rem 2rem;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.placeorder-btn:hover {
+  background-color: #218838;
+}

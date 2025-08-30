@@ -1,0 +1,52 @@
+[
+  {
+    "id": 1,
+    "name": "Biryani",
+    "image": "https://www.cookingwithsiddhi.com/wp-content/uploads/Hyderabadi-Biryani-Recipe.jpg"
+  },
+  {
+    "id": 2,
+    "name": "Dosa",
+    "image": "https://static.toiimg.com/thumb/53109843.cms?width=1200&height=900"
+  },
+  {
+    "id": 3,
+    "name": "Chole Bhature",
+    "image": "https://www.indianhealthyrecipes.com/wp-content/uploads/2021/11/chole-bhature.jpg"
+  },
+  {
+    "id": 4,
+    "name": "Paneer Tikka",
+    "image": "https://www.cubesnjuliennes.com/wp-content/uploads/2020/12/Tandoori-Paneer-Tikka-Recipe.jpg"
+  },
+  {
+    "id": 5,
+    "name": "Butter Chicken",
+    "image": "https://www.indianhealthyrecipes.com/wp-content/uploads/2021/11/butter-chicken-recipe.jpg"
+  },
+  {
+    "id": 6,
+    "name": "Idli Sambar",
+    "image": "https://www.vegrecipesofindia.com/wp-content/uploads/2010/01/idli-sambar-recipe.jpg"
+  },
+  {
+    "id": 7,
+    "name": "Pani Puri",
+    "image": "https://www.vegrecipesofindia.com/wp-content/uploads/2021/04/pani-puri-recipe-1.jpg"
+  },
+  {
+    "id": 8,
+    "name": "Samosa",
+    "image": "https://www.cookwithmanali.com/wp-content/uploads/2019/08/Punjabi-Samosa-500x500.jpg"
+  },
+  {
+    "id": 9,
+    "name": "Aloo Paratha",
+    "image": "https://www.cookwithmanali.com/wp-content/uploads/2019/06/Aloo-Paratha-Recipe.jpg"
+  },
+  {
+    "id": 10,
+    "name": "Gulab Jamun",
+    "image": "https://www.vegrecipesofindia.com/wp-content/uploads/2014/10/gulab-jamun-recipe.jpg"
+  }
+]

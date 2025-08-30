@@ -1,0 +1,48 @@
+/* UpiPayment.css */
+.upi-payment-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+  font-family: Arial, sans-serif;
+  background: #f9fafb;
+  min-height: 100vh;
+}
+
+#gpay-container {
+  margin-bottom: 20px;
+}
+
+/* Section heading */
+.upi-heading {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+/* QR box */
+.qr-box {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.qr-box svg {
+  border: 3px solid #007bff;
+  border-radius: 8px;
+  padding: 10px;
+  background: #fff;
+}
+
+/* Add hover effect */
+.qr-box svg:hover {
+  transform: scale(1.05);
+  transition: transform 0.3s ease;
+}
+
+

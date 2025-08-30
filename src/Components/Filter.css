@@ -1,0 +1,119 @@
+/* Filter.css */
+
+/* Top Controls Container */
+.top-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 10px;
+}
+
+/* Dropdown Style */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown button {
+  background-color: #ff6600;
+  color: white; /* Text visible */
+  padding: 10px 15px;
+  font-size: 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.dropdown button:hover {
+  background-color: #e65c00;
+}
+
+/* Dropdown Content */
+.dropdown-content {
+  display: block;
+  position: absolute;
+  background-color: white;
+  min-width: 200px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+  padding: 12px;
+  border-radius: 6px;
+  z-index: 10;
+}
+
+.dropdown-content h4 {
+  margin: 10px 0 5px;
+  color: #333; /* Dark text */
+  font-size: 14px;
+}
+
+.dropdown-content button {
+  display: block;
+  background-color: transparent;
+  color: #333; /* Dark text */
+  padding: 8px;
+  width: 100%;
+  text-align: left;
+  border: none;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.dropdown-content button:hover {
+  background-color: #f0f0f0;
+}
+
+.dropdown-content .active {
+  background-color: #ff6600;
+  color: white; /* Contrast on active */
+}
+
+/* Sort Dropdown */
+.dropdown select {
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  color: #333;
+  background-color: white;
+}
+
+/* Card Container */
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 15px;
+}
+
+/* Card Style */
+.card {
+  background-color: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.card img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+}
+
+.card-content {
+  padding: 10px;
+}
+
+.card-title {
+  font-size: 16px;
+  font-weight: bold;
+  color: #222; /* Dark text */
+  margin-bottom: 5px;
+}
+
+.card-price {
+  font-size: 14px;
+  color: #ff6600;
+  font-weight: bold;
+}
