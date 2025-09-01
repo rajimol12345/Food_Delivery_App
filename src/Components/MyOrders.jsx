@@ -89,36 +89,15 @@ const MyOrders = () => {
           {Array.isArray(order.items) && order.items.length > 0 ? (
             <div className="order-items">
               <strong>Items:</strong>
-              {order.items.map((item, index) => {
-                const imageUrl = item.image?.startsWith('http')
-                  ? item.image
-                  : item.image
-                  ? `http://localhost:5000/${item.image}`
-                  : null;
-
-                return (
-                  <div key={index} className="order-item">
-                    {imageUrl ? (
-                      <img
-                        src={imageUrl}
-                        alt={item.name}
-                        className="order-item-image"
-                        onError={(e) => {
-                          e.target.onerror = null;
-                          e.target.src = '/fallback.jpg';
-                        }}
-                      />
-                    ) : (
-                      <div className="order-item-placeholder">No Image</div>
-                    )}
-                    <div className="order-item-details">
-                      <span>{item.name}</span>
-                      <span>Qty: {item.quantity}</span>
-                      <span>₹{item.price * item.quantity}</span>
-                    </div>
+              {order.items.map((item, index) => (
+                <div key={index} className="order-item">
+                  <div className="order-item-details">
+                    <span>{item.name}</span>
+                    <span>Qty: {item.quantity}</span>
+                    <span>₹{item.price * item.quantity}</span>
                   </div>
-                );
-              })}
+                </div>
+              ))}
             </div>
           ) : (
             <p className="no-items">No items in this order.</p>

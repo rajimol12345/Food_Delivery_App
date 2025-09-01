@@ -41,12 +41,9 @@ export default function LoginForm() {
           password: btoa(data.password),
         }
       );
-
       const user = response.data;
       const userID = user.token;
-
       document.cookie = `token=${userID}; max-age=3600; path=/`;
-
       toast.success('Login successful!');
       reset();
       setTimeout(() => navigate('/Home'), 1500);
@@ -62,7 +59,6 @@ export default function LoginForm() {
     <div className="container">
       <form className="form-box" onSubmit={handleSubmit(onSubmit)} noValidate>
         <h1>User Login</h1>
-
         <div className="input-group">
           <div className="input-field">
             <input
@@ -97,9 +93,18 @@ export default function LoginForm() {
           </div>
         </div>
 
+        {/* ✅ Spinner + Text */}
         <button type="submit" className="submit-btn" disabled={loading}>
-          {loading ? 'Logging in...' : 'Login'}
+          {loading ? (
+            <>
+              <div className="spinner"></div>
+              <span style={{ marginLeft: '8px' }}>Logging in...</span>
+            </>
+          ) : (
+            'Login'
+          )}
         </button>
+
         <p>
           Don't have an account? <Link to="/RegisterForm">Register here</Link>
         </p>

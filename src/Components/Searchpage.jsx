@@ -1,3 +1,4 @@
+// src/pages/Searchpage.jsx
 import React, { useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import axios from "axios";
@@ -8,6 +9,17 @@ const Searchpage = ({ onSearch }) => {
   const [results, setResults] = useState({ foods: [], restaurants: [] });
   const [loading, setLoading] = useState(false);
 
+  // --- Helper to get cookie token ---
+  const getCookie = (name) => {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(";").shift();
+    return null;
+  };
+
+  const userId = getCookie("token");
+
+  // --- Search Submit ---
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!query.trim()) return;
@@ -18,13 +30,12 @@ const Searchpage = ({ onSearch }) => {
         `http://localhost:5000/api/search?q=${encodeURIComponent(query)}`
       );
 
-      // Defensive fallback
-      setResults({
-        foods: Array.isArray(data.foods) ? data.foods : [],
-        restaurants: Array.isArray(data.restaurants) ? data.restaurants : [],
-      });
+      const foods = Array.isArray(data?.foods) ? data.foods : [];
+      const restaurants = Array.isArray(data?.restaurants) ? data.restaurants : [];
 
-      if (onSearch) onSearch(data);
+      setResults({ foods, restaurants });
+
+      if (onSearch) onSearch({ foods, restaurants });
     } catch (error) {
       console.error("Search error:", error);
       setResults({ foods: [], restaurants: [] });
@@ -33,9 +44,30 @@ const Searchpage = ({ onSearch }) => {
     }
   };
 
+  // --- Add to Cart Function ---
+  const handleAddToCart = async (foodId) => {
+    if (!userId) {
+      alert("Please log in to add items to cart!");
+      return;
+    }
+
+    try {
+      await axios.post("http://localhost:5000/api/cart/add", {
+        userId,
+        menuId: foodId,
+        quantity: 1,
+      });
+
+      alert("Item added to cart!");
+    } catch (error) {
+      console.error("Error adding to cart:", error);
+      alert("Failed to add item to cart.");
+    }
+  };
+
   return (
     <div className="search-container">
-      {/* Search Input */}
+      {/* Search Bar */}
       <form className="search-bar" onSubmit={handleSubmit}>
         <input
           type="text"
@@ -48,8 +80,8 @@ const Searchpage = ({ onSearch }) => {
         </button>
       </form>
 
-      {/* Loading State */}
-      {loading && <p>Searching...</p>}
+      {/* Loading */}
+      {loading && <p className="loading-text">Searching...</p>}
 
       {/* Results */}
       {!loading && (results.foods.length > 0 || results.restaurants.length > 0) && (
@@ -66,7 +98,12 @@ const Searchpage = ({ onSearch }) => {
                 <h3 className="card-title">{food.name}</h3>
                 <p className="card-description">{food.description}</p>
                 <p className="card-price">₹{food.price}</p>
-                <button className="add-btn">ADD</button>
+                <button
+                  className="add-btn"
+                  onClick={() => handleAddToCart(food._id)}
+                >
+                  ADD
+                </button>
               </div>
             </div>
           ))}
@@ -91,9 +128,11 @@ const Searchpage = ({ onSearch }) => {
 
       {/* No Results */}
       {!loading &&
+        query.trim() &&
         results.foods.length === 0 &&
-        results.restaurants.length === 0 &&
-        query.trim() && <p>No results found.</p>}
+        results.restaurants.length === 0 && (
+          <p className="no-results">No results found.</p>
+        )}
     </div>
   );
 };

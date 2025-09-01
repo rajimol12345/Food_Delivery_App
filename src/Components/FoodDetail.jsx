@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { FaHeart } from 'react-icons/fa';
-
+import './FoodDetail.css'
 const FoodDetail = () => {
   const { foodId } = useParams();
   const [item, setItem] = useState(null);
@@ -33,13 +33,11 @@ const FoodDetail = () => {
         setLoading(false);
       }
     };
-
     fetchFood();
   }, [foodId, userId]);
 
   const handleAddToCart = async () => {
-    if (!userId) return alert('Please log in to add to cart.');
-
+    if (!userId) return alert('Please log in to add to cart');
     try {
       await axios.post('http://localhost:5000/api/cart/addcart', {
         userId,
@@ -55,8 +53,7 @@ const FoodDetail = () => {
   };
 
   const handleWishlist = async () => {
-    if (!userId) return alert('Please log in to use wishlist.');
-
+    if (!userId) return alert('Please log in to use wishlist');
     try {
       if (saved) {
         await axios.delete(`http://localhost:5000/api/saved/${userId}/${foodId}`);
@@ -78,38 +75,35 @@ const FoodDetail = () => {
   if (!item) return <div className="text-center text-danger">Item not found</div>;
 
   return (
-    <div className="container py-5">
-      <div className="row align-items-start">
-        <div className="col-md-5">
-          <img
-            src={item.image}
-            alt={item.name}
-            className="img-fluid rounded shadow"
-            onError={(e) => {
-              e.target.onerror = null;
-              e.target.src = '/fallback.jpg';
-            }}
+    <div className="food-detail-container">
+      <div className="image-section">
+        <img
+          src={item.image}
+          alt={item.name}
+          className="food-image"
+          onError={(e) => {
+            e.target.onerror = null;
+            e.target.src = '/fallback.jpg';
+          }}
+        />
+      </div>
+
+      <div className="content-section">
+        <div className="header-row">
+          <h1 className="food-name">{item.name}</h1>
+          <FaHeart
+            className={`wishlist-icon ${saved ? 'saved' : ''}`}
+            onClick={handleWishlist}
+            title={saved ? 'Remove from wishlist' : 'Add to wishlist'}
           />
         </div>
 
-        <div className="col-md-7">
-          <div className="d-flex justify-content-between align-items-start">
-            <h2>{item.name}</h2>
-            <FaHeart
-              onClick={handleWishlist}
-              style={{ cursor: 'pointer', fontSize: '1.5rem' }}
-              className={saved ? 'text-danger' : 'text-secondary'}
-              title={saved ? 'Remove from wishlist' : 'Add to wishlist'}
-            />
-          </div>
+        <p className="food-description">{item.description}</p>
+        <div className="price-tag">₹{item.price}</div>
 
-          <p className="text-muted mt-2">{item.description}</p>
-          <h4 className="text-success">₹{item.price}</h4>
-
-          <button className="btn btn-primary mt-3" onClick={handleAddToCart}>
-            Add to Cart
-          </button>
-        </div>
+        <button className="btn-add-cart" onClick={handleAddToCart}>
+          Add to Cart
+        </button>
       </div>
     </div>
   );

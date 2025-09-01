@@ -4,12 +4,7 @@
   box-sizing: border-box;
 }
 
-/* body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  justify-content: center;
-  align-items: center;
-} */
-
+/* Container */
 .container {
   width: 100%;
   margin-top: 50px;
@@ -18,14 +13,18 @@
   padding: 40px;
   border-radius: 10px;
   box-shadow: 0 0 20px rgba(0,0,0,0.2);
+  margin-left: auto;
+  margin-right: auto;
 }
 
+/* Heading */
 .form-box h1 {
   text-align: center;
   margin-bottom: 30px;
   color: #ff4b2b;
 }
 
+/* Input Fields */
 .input-group {
   display: flex;
   flex-direction: column;
@@ -40,6 +39,13 @@
   font-size: 16px;
 }
 
+.error {
+  color: red;
+  font-size: 13px;
+  margin-top: 4px;
+}
+
+/* Submit Button */
 .submit-btn {
   width: 100%;
   padding: 12px 20px;
@@ -54,6 +60,9 @@
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: 0 4px 15px rgba(255, 75, 43, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .submit-btn:hover {
@@ -61,6 +70,13 @@
   box-shadow: 0 6px 18px rgba(255, 75, 43, 0.6);
   transform: scale(1.02);
 }
+
+.submit-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* Spinner */
 .spinner {
   width: 18px;
   height: 18px;
@@ -77,4 +93,3 @@
     transform: rotate(360deg);
   }
 }
-

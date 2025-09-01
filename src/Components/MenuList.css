@@ -1,0 +1,189 @@
+/* MenuList Container & Layout */
+.bg-light {
+  background-color: #f8f9fa !important;
+}
+
+.py-5 {
+  padding-top: 3rem !important;
+  padding-bottom: 3rem !important;
+}
+
+.text-center {
+  text-align: center !important;
+}
+
+.mb-4 {
+  margin-bottom: 1.5rem !important;
+}
+
+.px-4 {
+  padding-left: 1.5rem !important;
+  padding-right: 1.5rem !important;
+}
+
+
+/* Card styling */
+.card {
+  background: #fff;
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  position: relative;
+}
+
+.card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.15);
+}
+
+/* Card image */
+.card-img-top {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.card:hover .card-img-top {
+  transform: scale(1.05);
+}
+
+/* Card body */
+.card-body {
+  padding: 1rem 1rem 1.5rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-body h5 {
+  font-weight: 600;
+  font-size: 1.15rem;
+  margin-bottom: 0.25rem;
+  color: #222;
+  text-transform: capitalize;
+}
+
+.card-body p.text-muted {
+  font-size: 0.85rem;
+  color: #555;
+  flex-grow: 1;
+  margin-bottom: 0.8rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* number of lines to show */
+  -webkit-box-orient: vertical;
+}
+
+.card-body p.fw-bold.text-success {
+  font-weight: 700;
+  font-size: 1rem;
+  margin-bottom: 0.75rem;
+  color: #28a745 !important;
+}
+
+/* Add button styling */
+.btn-primary {
+  background-color: #ff6417;
+  border: none;
+  color: white;
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 0.6rem 0;
+  border-radius: 30px;
+  box-shadow: 0 6px 15px rgba(255, 100, 23, 0.6);
+  transition: background 0.3s ease, transform 0.2s ease;
+  width: 100%;
+  letter-spacing: 0.05em;
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+  background-color: #e55d14;
+  box-shadow: 0 8px 20px rgba(229, 93, 20, 0.8);
+  transform: translateY(-2px);
+}
+
+/* Wishlist Heart icon */
+.wishlist-icon {
+  color: #bbb;
+  transition: color 0.3s ease, transform 0.3s ease;
+  user-select: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 10;
+  font-size: 1.3rem;
+  cursor: pointer;
+}
+
+.wishlist-icon.saved {
+  color: #ff3b3f;
+}
+
+.wishlist-icon.not-saved:hover {
+  color: #ff7a7f;
+  transform: scale(1.3);
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+/* Heartbeat animation */
+@keyframes heartBeat {
+  0%, 100% {
+    transform: scale(1);
+  }
+  25% {
+    transform: scale(1.3);
+  }
+  40% {
+    transform: scale(1);
+  }
+  60% {
+    transform: scale(1.2);
+  }
+  80% {
+    transform: scale(1);
+  }
+}
+
+.animate-heart {
+  animation: heartBeat 0.8s ease forwards;
+}
+
+/* Toast styling */
+.toast-container {
+  max-width: 360px;
+}
+
+.toast-body {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .row.g-4 {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  }
+
+  .card-img-top {
+    height: 140px;
+  }
+
+  .card-body h5 {
+    font-size: 1rem;
+  }
+
+  .btn-primary {
+    font-size: 0.95rem;
+  }
+}

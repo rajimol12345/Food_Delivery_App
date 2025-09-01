@@ -28,6 +28,7 @@ import FoodDetail from './Components/FoodDetail';
 import PlaceOrder from './Components/PlaceOrder.jsx';
 import SearchResults from './Components/SearchResults.jsx';
 import MenuPage from './Components/MenuPage.jsx';
+import OrderSuccessPage from './Components/OrderSuccessPage.jsx';
 
 function App() {
   const location = useLocation();
@@ -66,6 +67,7 @@ function App() {
         <Route path="/menu/category/:categoryName" element={<MenuPage />} />
         <Route path="/results" element={<SearchResults />} />
         <Route path="/searchpage" element={<Searchpage />} />
+        {/* <Route path="/oderplaced" element={<OrderSuccessPage />} /> */}
         {/* Catch-all: Redirect to homepage */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

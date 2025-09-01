@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { FaHeart } from 'react-icons/fa';
+import { FaHeart, FaRegHeart } from 'react-icons/fa';
+import './MenuList.css';
 
 const MenuList = ({ restaurantId, showCustomToast }) => {
   const [menu, setMenu] = useState([]);
@@ -9,7 +10,6 @@ const MenuList = ({ restaurantId, showCustomToast }) => {
   const [loading, setLoading] = useState(true);
   const [toastMessage, setToastMessage] = useState('');
   const [showToast, setShowToast] = useState(false);
-
   const navigate = useNavigate();
 
   const getCookie = (name) => {
@@ -28,14 +28,13 @@ const MenuList = ({ restaurantId, showCustomToast }) => {
         return;
       }
       try {
+        // Fetch menu and saved wishlist items together if user logged in
         const [menuRes, savedRes] = await Promise.all([
           axios.get(`http://localhost:5000/api/menu/restaurant/${restaurantId}`),
-          userId
-            ? axios.get(`http://localhost:5000/api/saved/${userId}`)
-            : Promise.resolve({ data: [] }),
+          userId ? axios.get(`http://localhost:5000/api/saved/${userId}`) : Promise.resolve({ data: [] }),
         ]);
         setMenu(menuRes.data);
-        setSavedItems(savedRes.data.map((item) => item.productId));
+        setSavedItems(savedRes.data.map(item => item.productId));
       } catch (error) {
         console.error('Error fetching data:', error);
         triggerToast('Failed to load menu or wishlist');
@@ -43,6 +42,7 @@ const MenuList = ({ restaurantId, showCustomToast }) => {
         setLoading(false);
       }
     };
+
     fetchData();
   }, [restaurantId, userId]);
 
@@ -61,20 +61,18 @@ const MenuList = ({ restaurantId, showCustomToast }) => {
       triggerToast('Please log in to save items.');
       return;
     }
-
     const isAlreadySaved = savedItems.includes(item._id);
-
     try {
       if (isAlreadySaved) {
         await axios.delete(`http://localhost:5000/api/saved/${userId}/${item._id}`);
-        setSavedItems((prev) => prev.filter((id) => id !== item._id)); // Remove from local state
+        setSavedItems((prev) => prev.filter(id => id !== item._id));
         triggerToast(`${item.name} removed from Wishlist.`);
       } else {
         await axios.post('http://localhost:5000/api/saved/add', {
           userId,
           productId: item._id,
         });
-        setSavedItems((prev) => [...prev, item._id]); // Add to local state
+        setSavedItems((prev) => [...prev, item._id]);
         triggerToast(`${item.name} added to Wishlist.`);
       }
     } catch (error) {
@@ -88,7 +86,6 @@ const MenuList = ({ restaurantId, showCustomToast }) => {
       triggerToast('Please log in to add items to cart.');
       return;
     }
-
     try {
       await axios.post('http://localhost:5000/api/cart/addcart', {
         userId,
@@ -115,7 +112,10 @@ const MenuList = ({ restaurantId, showCustomToast }) => {
 
       {/* Custom Toast */}
       {showToast && (
-        <div className="toast-container position-fixed bottom-0 end-0 p-3" style={{ zIndex: 9999 }}>
+        <div
+          className="toast-container position-fixed bottom-0 end-0 p-3"
+          style={{ zIndex: 9999 }}
+        >
           <div className="toast show align-items-center text-white bg-dark border-0">
             <div className="d-flex">
               <div className="toast-body">{toastMessage}</div>
@@ -130,59 +130,65 @@ const MenuList = ({ restaurantId, showCustomToast }) => {
       )}
 
       <div className="row g-4 px-4">
-        {menu.map((item) => (
-          <div className="col-md-3" key={item._id}>
-            <div
-              className="card h-100 shadow-sm position-relative"
-              style={{ cursor: 'pointer', transition: 'transform 0.2s' }}
-              onClick={() => handleCardClick(item)}
-              onMouseEnter={(e) => (e.currentTarget.style.transform = 'scale(1.02)')}
-              onMouseLeave={(e) => (e.currentTarget.style.transform = 'scale(1)')}
-            >
-              {/* Heart Icon */}
-              <FaHeart
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleAddToWishlist(item);
-                }}
-                title={savedItems.includes(item._id) ? 'Remove from wishlist' : 'Add to wishlist'}
-                className={`position-absolute fs-5 ${savedItems.includes(item._id) ? 'text-danger' : 'text-secondary'}`}
-                style={{ top: '10px', right: '10px', zIndex: 2, cursor: 'pointer' }}
-              />
+        {menu.map((item) => {
+          const isSaved = savedItems.includes(item._id);
+          return (
+            <div className="col-md-3" key={item._id}>
+              <div
+                className="card h-100 shadow-sm position-relative"
+                style={{ cursor: 'pointer', transition: 'transform 0.2s' }}
+                onClick={() => handleCardClick(item)}
+                onMouseEnter={(e) => (e.currentTarget.style.transform = 'scale(1.02)')}
+                onMouseLeave={(e) => (e.currentTarget.style.transform = 'scale(1)')}
+              >
+                {/* Heart Icon: filled if saved, outlined if not + animation */}
+                <span
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleAddToWishlist(item);
+                  }}
+                  title={isSaved ? 'Remove from wishlist' : 'Add to wishlist'}
+                  className={`wishlist-icon position-absolute fs-5 ${
+                    isSaved ? 'saved animate-heart' : 'not-saved'
+                  }`}
+                  style={{ top: '10px', right: '10px', zIndex: 2, cursor: 'pointer' }}
+                >
+                  {isSaved ? <FaHeart /> : <FaRegHeart />}
+                </span>
 
-              {/* Image */}
-              <img
-                src={item.image}
-                alt={item.name}
-                onError={(e) => {
-                  e.target.onerror = null;
-                  e.target.src = '/fallback.jpg';
-                }}
-                className="card-img-top"
-                style={{ height: '180px', objectFit: 'cover' }}
-              />
+                {/* Image */}
+                <img
+                  src={item.image}
+                  alt={item.name}
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = '/fallback.jpg';
+                  }}
+                  className="card-img-top"
+                  style={{ height: '180px', objectFit: 'cover' }}
+                />
 
-              {/* Card Body */}
-              <div className="card-body d-flex flex-column">
-                <h5 className="fw-semibold">{item.name}</h5>
-                <p className="text-muted small">{item.description}</p>
-                <p className="fw-bold text-success mb-2">₹{item.price}</p>
-
-                <div className="mt-auto">
-                  <button
-                    className="btn btn-primary w-100"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleAddToCart(item);
-                    }}
-                  >
-                    ADD
-                  </button>
+                {/* Card Body */}
+                <div className="card-body d-flex flex-column">
+                  <h5 className="fw-semibold">{item.name}</h5>
+                  <p className="text-muted small">{item.description}</p>
+                  <p className="fw-bold text-success mb-2">₹{item.price}</p>
+                  <div className="mt-auto">
+                    <button
+                      className="btn btn-primary w-100"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleAddToCart(item);
+                      }}
+                    >
+                      ADD
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );

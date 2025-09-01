@@ -1,58 +1,132 @@
 .food-detail-container {
-  padding: 20px;
+  max-width: 900px;
+  margin: 40px auto;
   display: flex;
+  gap: 40px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 0 20px;
+  flex-wrap: wrap;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.image-section {
+  flex: 1 1 350px;
+  min-width: 300px;
+}
+
+.food-image {
+  width: 100%;
+  border-radius: 12px;
+  object-fit: cover;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease;
+}
+.food-image:hover {
+  transform: scale(1.03);
+}
+
+.content-section {
+  flex: 1 1 450px;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
 }
 
-.food-detail-card {
-  max-width: 800px;
+.header-row {
   display: flex;
-  flex-wrap: wrap;
-  background: #fff;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 15px;
 }
 
-.food-detail-image {
-  width: 100%;
-  max-width: 400px;
-  object-fit: cover;
-  border-radius: 10px 0 0 10px;
+.food-name {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #222;
+  margin: 0;
+  text-transform: capitalize;
+  letter-spacing: 0.03em;
 }
 
-.food-detail-info {
-  padding: 20px;
-  flex: 1;
+.wishlist-icon {
+  font-size: 1.8rem;
+  cursor: pointer;
+  color: #bbb;
+  transition: color 0.3s, transform 0.3s;
+  user-select: none;
 }
 
-.food-price {
-  font-size: 24px;
-  font-weight: bold;
-  margin: 10px 0;
+.wishlist-icon:hover {
+  color: #ff3b3f;
+  transform: scale(1.2);
+}
+
+.wishlist-icon.saved {
+  color: #ff3b3f;
 }
 
 .food-description {
-  font-size: 16px;
+  font-size: 1.1rem;
   color: #555;
+  line-height: 1.6;
+  margin-bottom: 30px;
+  min-height: 90px;
 }
 
-.food-qty {
-  margin: 15px 0;
+.price-tag {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #28a745;
+  margin-bottom: 30px;
+  border-left: 5px solid #28a745;
+  padding-left: 15px;
+  letter-spacing: 0.05em;
+  font-family: 'Segoe UI SemiBold', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.food-qty input {
-  width: 60px;
-  padding: 5px;
-  margin-left: 10px;
-}
-
-.food-add-btn {
-  padding: 10px 20px;
-  background: #ff6600;
-  color: white;
+.btn-add-cart {
+  width: fit-content;
+  padding: 10px 24px;
+  background: linear-gradient(135deg, #ff6417, #e55d14);
   border: none;
-  font-size: 16px;
+  color: #fff;
+  font-size: 1.1rem;
+  border-radius: 30px;
   cursor: pointer;
-  border-radius: 5px;
+  font-weight: 700;
+  box-shadow: 0 6px 15px rgba(255, 100, 23, 0.6);
+  transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+  align-self: flex-start;
+  letter-spacing: 0.05em;
+  user-select: none;
+}
+
+.btn-add-cart:hover {
+  background: linear-gradient(135deg, #e55d14, #c44e10);
+  box-shadow: 0 8px 20px rgba(229, 93, 20, 0.8);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .food-detail-container {
+    flex-direction: column;
+    padding: 10px;
+  }
+  .image-section,
+  .content-section {
+    flex: unset;
+    min-width: 100%;
+  }
+  .food-name {
+    font-size: 2rem;
+  }
+  .price-tag {
+    font-size: 1.7rem;
+  }
+  .btn-add-cart {
+    width: 100%;
+    text-align: center;
+  }
 }

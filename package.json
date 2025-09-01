@@ -11,6 +11,7 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.9.0",
     "bootstrap": "^5.3.6",
+    "canvas-confetti": "^1.9.3",
     "chart.js": "^4.5.0",
     "dom": "^0.0.3",
     "mongodb": "^6.17.0",

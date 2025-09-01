@@ -1,13 +1,12 @@
-// PlaceOrder.jsx
 import React, { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
-import io from 'socket.io-client'; // ✅ Added for real-time notifications
+import io from 'socket.io-client';
 import 'react-toastify/dist/ReactToastify.css';
 import './PlaceOrder.css';
 
-const socket = io('http://localhost:5000'); // ✅ Connect to backend socket server
+const socket = io('http://localhost:5000');
 
 const PlaceOrder = () => {
   const location = useLocation();
@@ -40,7 +39,6 @@ const PlaceOrder = () => {
   const handlePlaceOrder = async () => {
     const userId = getCookie('token');
 
-    // Validation
     if (!userId) {
       toast.error('User not logged in or token missing.');
       return;
@@ -57,7 +55,7 @@ const PlaceOrder = () => {
         address: {
           name,
           line1: address,
-          line2: '', // Optional
+          line2: '',
           city,
           pincode,
         },
@@ -71,9 +69,11 @@ const PlaceOrder = () => {
         paymentMethod: orderData.paymentMode || 'N/A',
       };
 
-      const response = await axios.post('http://localhost:5000/api/order/place', payload);
+      const response = await axios.post(
+        'http://localhost:5000/api/order/place',
+        payload
+      );
 
-      // ✅ Emit socket event so admin can receive notification
       socket.emit('newOrder', {
         orderId: response.data?.orderId || 'N/A',
         customerName: name,
@@ -83,7 +83,13 @@ const PlaceOrder = () => {
 
       toast.success('Order placed successfully!', {
         autoClose: 2000,
-        onClose: () => navigate('/Order'),
+        onClose: () =>
+          navigate('/oderplaced', {
+            state: {
+              orderId: response.data?.orderId,
+              customerName: name,
+            },
+          }),
       });
     } catch (err) {
       toast.error(err?.response?.data?.error || 'Error placing order. Please try again.');
