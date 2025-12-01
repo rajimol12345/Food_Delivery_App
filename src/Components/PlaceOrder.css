@@ -1,11 +1,20 @@
+/* ===== Main Container ===== */
 .placeorder-container {
   max-width: 800px;
   margin: auto;
   padding: 2rem;
   background: #fff;
   border-radius: 10px;
+  font-family: "Poppins", sans-serif;
 }
 
+.placeorder-container h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+}
+
+/* ===== Order Box ===== */
 .placeorder-box {
   display: grid;
   gap: 1.5rem;
@@ -14,6 +23,7 @@
   border-radius: 10px;
 }
 
+/* ===== Section Box ===== */
 .placeorder-section {
   padding: 1rem;
   background: #fff;
@@ -21,19 +31,72 @@
   border: 1px solid #ddd;
 }
 
+/* ===== Item Card ===== */
 .placeorder-item {
   display: flex;
-  justify-content: space-between;
-  margin-bottom: 0.5rem;
+  align-items: center;
+  gap: 15px;
+  background: #fafafa;
+  padding: 12px;
+  border-radius: 10px;
+  margin-bottom: 12px;
+  border: 1px solid #eee;
+  transition: 0.3s ease;
 }
 
+.placeorder-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0px 3px 10px rgba(0,0,0,0.1);
+}
+
+/* ===== Item Image ===== */
+.placeorder-item-img {
+  width: 70px;
+  height: 70px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+/* ===== Item Info ===== */
+.placeorder-item-info {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.placeorder-item-info h5 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+}
+
+.placeorder-item-info p {
+  margin: 0;
+  font-size: 14px;
+  color: #666;
+}
+
+.placeorder-item-info .price {
+  color: #e63946;
+  font-weight: 600;
+  margin-top: 5px;
+}
+
+/* ===== Total Amount ===== */
 .placeorder-total {
   display: flex;
   justify-content: space-between;
   font-weight: bold;
+  font-size: 18px;
   margin-top: 1rem;
+  padding: 10px;
+  border-radius: 6px;
+  background: #fff5e6;
+  border: 1px solid #ffd9b3;
 }
 
+/* ===== Button ===== */
 .placeorder-btn {
   margin-top: 2rem;
   padding: 0.75rem 2rem;
@@ -42,9 +105,33 @@
   border: none;
   border-radius: 6px;
   font-size: 1rem;
+  display: block;
+  width: 100%;
   cursor: pointer;
+  transition: 0.3s;
 }
 
 .placeorder-btn:hover {
   background-color: #218838;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 600px) {
+  .placeorder-item {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .placeorder-item-img {
+    width: 100px;
+    height: 100px;
+  }
+
+  .placeorder-item-info {
+    align-items: center;
+  }
+
+  .placeorder-container {
+    padding: 1rem;
+  }
 }

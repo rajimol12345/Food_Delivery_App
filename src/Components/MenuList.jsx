@@ -10,6 +10,8 @@ const MenuList = ({ restaurantId, showCustomToast }) => {
   const [loading, setLoading] = useState(true);
   const [toastMessage, setToastMessage] = useState('');
   const [showToast, setShowToast] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(false); // prevent spam click
+
   const navigate = useNavigate();
 
   const getCookie = (name) => {
@@ -21,22 +23,26 @@ const MenuList = ({ restaurantId, showCustomToast }) => {
 
   const userId = getCookie('token');
 
+  // Fetch menu + wishlist
   useEffect(() => {
     const fetchData = async () => {
       if (!restaurantId) {
         setLoading(false);
         return;
       }
+
       try {
-        // Fetch menu and saved wishlist items together if user logged in
         const [menuRes, savedRes] = await Promise.all([
           axios.get(`http://localhost:5000/api/menu/restaurant/${restaurantId}`),
-          userId ? axios.get(`http://localhost:5000/api/saved/${userId}`) : Promise.resolve({ data: [] }),
+          userId
+            ? axios.get(`http://localhost:5000/api/saved/${userId}`)
+            : Promise.resolve({ data: [] }),
         ]);
+
         setMenu(menuRes.data);
-        setSavedItems(savedRes.data.map(item => item.productId));
+        setSavedItems(savedRes.data.map((item) => item.productId));
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error('Error fetching menu/wishlist:', error);
         triggerToast('Failed to load menu or wishlist');
       } finally {
         setLoading(false);
@@ -56,19 +62,19 @@ const MenuList = ({ restaurantId, showCustomToast }) => {
     }
   };
 
+  // Wishlist toggle
   const handleAddToWishlist = async (item) => {
-    if (!userId) {
-      triggerToast('Please log in to save items.');
-      return;
-    }
-    const isAlreadySaved = savedItems.includes(item._id);
+    if (!userId) return triggerToast('Please log in to save items.');
+
+    const isSaved = savedItems.includes(item._id);
+
     try {
-      if (isAlreadySaved) {
+      if (isSaved) {
         await axios.delete(`http://localhost:5000/api/saved/${userId}/${item._id}`);
-        setSavedItems((prev) => prev.filter(id => id !== item._id));
+        setSavedItems((prev) => prev.filter((id) => id !== item._id));
         triggerToast(`${item.name} removed from Wishlist.`);
       } else {
-        await axios.post('http://localhost:5000/api/saved/add', {
+        await axios.post(`http://localhost:5000/api/saved/add`, {
           userId,
           productId: item._id,
         });
@@ -76,26 +82,31 @@ const MenuList = ({ restaurantId, showCustomToast }) => {
         triggerToast(`${item.name} added to Wishlist.`);
       }
     } catch (error) {
-      console.error('Wishlist error:', error);
+      console.error('Wishlist update error:', error);
       triggerToast('Failed to update wishlist.');
     }
   };
 
+  // Add to cart
   const handleAddToCart = async (item) => {
-    if (!userId) {
-      triggerToast('Please log in to add items to cart.');
-      return;
-    }
+    if (!userId) return triggerToast('Please log in to add items to cart.');
+
+    if (isProcessing) return; // Prevent double-click
+    setIsProcessing(true);
+
     try {
-      await axios.post('http://localhost:5000/api/cart/addcart', {
+      await axios.post(`http://localhost:5000/api/cart/addcart`, {
         userId,
         menuId: item._id,
         quantity: 1,
       });
+
       triggerToast(`${item.name} added to cart.`);
     } catch (error) {
-      console.error('Error adding to cart:', error);
+      console.error('Add to cart error:', error);
       triggerToast('Failed to add item to cart.');
+    } finally {
+      setTimeout(() => setIsProcessing(false), 500); // unlock after 0.5s
     }
   };
 
@@ -107,15 +118,11 @@ const MenuList = ({ restaurantId, showCustomToast }) => {
   if (!menu.length) return <div className="text-center py-5">No menu items found.</div>;
 
   return (
-    <div className="bg-light py-5">
-      <h3 className="text-center mb-4">Menu</h3>
+    <div className="menu-page">
+      <h3 className="menu-title text-center mb-4">Menu</h3>
 
-      {/* Custom Toast */}
       {showToast && (
-        <div
-          className="toast-container position-fixed bottom-0 end-0 p-3"
-          style={{ zIndex: 9999 }}
-        >
+        <div className="toast-container position-fixed bottom-0 end-0 p-3" style={{ zIndex: 9999 }}>
           <div className="toast show align-items-center text-white bg-dark border-0">
             <div className="d-flex">
               <div className="toast-body">{toastMessage}</div>
@@ -132,26 +139,21 @@ const MenuList = ({ restaurantId, showCustomToast }) => {
       <div className="row g-4 px-4">
         {menu.map((item) => {
           const isSaved = savedItems.includes(item._id);
+
           return (
-            <div className="col-md-3" key={item._id}>
+            <div className="col-md-3 col-sm-6" key={item._id}>
               <div
-                className="card h-100 shadow-sm position-relative"
-                style={{ cursor: 'pointer', transition: 'transform 0.2s' }}
+                className="menu-card card h-100 shadow-sm position-relative"
                 onClick={() => handleCardClick(item)}
-                onMouseEnter={(e) => (e.currentTarget.style.transform = 'scale(1.02)')}
-                onMouseLeave={(e) => (e.currentTarget.style.transform = 'scale(1)')}
               >
-                {/* Heart Icon: filled if saved, outlined if not + animation */}
+                {/* Wishlist Heart */}
                 <span
+                  className={`wishlist-icon position-absolute ${isSaved ? 'saved' : ''}`}
                   onClick={(e) => {
+                    e.preventDefault();
                     e.stopPropagation();
                     handleAddToWishlist(item);
                   }}
-                  title={isSaved ? 'Remove from wishlist' : 'Add to wishlist'}
-                  className={`wishlist-icon position-absolute fs-5 ${
-                    isSaved ? 'saved animate-heart' : 'not-saved'
-                  }`}
-                  style={{ top: '10px', right: '10px', zIndex: 2, cursor: 'pointer' }}
                 >
                   {isSaved ? <FaHeart /> : <FaRegHeart />}
                 </span>
@@ -160,30 +162,28 @@ const MenuList = ({ restaurantId, showCustomToast }) => {
                 <img
                   src={item.image}
                   alt={item.name}
+                  className="menu-img"
                   onError={(e) => {
                     e.target.onerror = null;
-                    e.target.src = '/fallback.jpg';
+                    e.target.src = 'https://via.placeholder.com/300x200?text=No+Image';
                   }}
-                  className="card-img-top"
-                  style={{ height: '180px', objectFit: 'cover' }}
                 />
 
                 {/* Card Body */}
                 <div className="card-body d-flex flex-column">
                   <h5 className="fw-semibold">{item.name}</h5>
-                  <p className="text-muted small">{item.description}</p>
-                  <p className="fw-bold text-success mb-2">₹{item.price}</p>
-                  <div className="mt-auto">
-                    <button
-                      className="btn btn-primary w-100"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleAddToCart(item);
-                      }}
-                    >
-                      ADD
-                    </button>
-                  </div>
+                  <p className="text-muted small desc">{item.description}</p>
+                  <p className="fw-bold text-success mb-2 price">₹{item.price}</p>
+
+                  <button
+                    className="btn btn-primary w-100 mt-auto"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleAddToCart(item);
+                    }}
+                  >
+                    ADD
+                  </button>
                 </div>
               </div>
             </div>

@@ -33,18 +33,17 @@ import OrderSuccessPage from './Components/OrderSuccessPage.jsx';
 function App() {
   const location = useLocation();
 
+  // Routes where Header or Footer should be hidden
   const hideHeaderOnRoutes = ['/', '/LoginForm', '/RegisterForm'];
   const hideFooterOnRoutes = ['/', '/LoginForm', '/RegisterForm'];
 
   const shouldHideHeader = hideHeaderOnRoutes.includes(location.pathname);
   const shouldHideFooter = hideFooterOnRoutes.includes(location.pathname);
 
-
   return (
     <div>
       {/* Header */}
       {!shouldHideHeader && <Header />}
-
 
       <Routes>
         {/* Public Routes */}
@@ -67,7 +66,10 @@ function App() {
         <Route path="/menu/category/:categoryName" element={<MenuPage />} />
         <Route path="/results" element={<SearchResults />} />
         <Route path="/searchpage" element={<Searchpage />} />
-        {/* <Route path="/oderplaced" element={<OrderSuccessPage />} /> */}
+
+        {/* Order Success Route */}
+        <Route path="/order-success" element={<OrderSuccessPage />} />
+
         {/* Catch-all: Redirect to homepage */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

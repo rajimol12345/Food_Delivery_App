@@ -36,6 +36,10 @@ const PlaceOrder = () => {
     0
   );
 
+  // Extract restaurant info from first item in the cart
+  const restaurantId = orderData.cartItems[0]?.restaurantId || null;
+  const restaurantName = orderData.cartItems[0]?.restaurantName || "Unknown Restaurant";
+
   const handlePlaceOrder = async () => {
     const userId = getCookie('token');
 
@@ -52,6 +56,8 @@ const PlaceOrder = () => {
     try {
       const payload = {
         userId,
+        restaurantId,
+        restaurantName, // ⭐ FIX ADDED
         address: {
           name,
           line1: address,
@@ -62,6 +68,7 @@ const PlaceOrder = () => {
         items: orderData.cartItems.map(item => ({
           menuId: item._id,
           name: item.name,
+          image: item.image,
           price: item.price,
           quantity: item.quantity,
         })),
@@ -76,23 +83,30 @@ const PlaceOrder = () => {
 
       socket.emit('newOrder', {
         orderId: response.data?.orderId || 'N/A',
+        restaurantName,
         customerName: name,
         totalAmount: total,
         time: new Date().toISOString(),
       });
 
-      toast.success('Order placed successfully!', {
-        autoClose: 2000,
-        onClose: () =>
-          navigate('/oderplaced', {
-            state: {
-              orderId: response.data?.orderId,
-              customerName: name,
-            },
-          }),
-      });
+      toast.success('Order placed successfully!', { autoClose: 1500 });
+
+      setTimeout(() => {
+        navigate('/order-success', {
+          state: {
+            orderId: response.data?.orderId || 'N/A',
+            restaurantName,
+            customerName: name,
+            totalAmount: total,
+            items: orderData.cartItems,
+            deliveryAddress: { name, address, city, pincode },
+          },
+        });
+      }, 1500);
     } catch (err) {
-      toast.error(err?.response?.data?.error || 'Error placing order. Please try again.');
+      toast.error(
+        err?.response?.data?.error || 'Error placing order. Please try again.'
+      );
       console.error('Order Error:', err?.response?.data);
     }
   };
@@ -116,11 +130,19 @@ const PlaceOrder = () => {
           <h4>Items</h4>
           {orderData.cartItems.map((item, idx) => (
             <div className="placeorder-item" key={idx}>
-              <span>{item.name}</span>
-              <span>Qty: {item.quantity}</span>
-              <span>₹{item.price * item.quantity}</span>
+              <img
+                src={item.image || 'https://via.placeholder.com/80'}
+                alt={item.name}
+                className="placeorder-item-img"
+              />
+              <div className="placeorder-item-info">
+                <h5>{item.name}</h5>
+                <p>Quantity: {item.quantity}</p>
+                <p className="price">₹{item.price * item.quantity}</p>
+              </div>
             </div>
           ))}
+
           <div className="placeorder-total">
             <strong>Total:</strong> ₹{total}
           </div>

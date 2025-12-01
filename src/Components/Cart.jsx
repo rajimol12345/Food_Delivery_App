@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { FaTrashAlt } from 'react-icons/fa';
 import './Cart.css';
-import { useCart } from '../contexts/CartContext'; // ✅ Import cart context
+import { useCart } from '../contexts/CartContext';
 
 const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -12,8 +12,7 @@ const Cart = () => {
   const navigate = useNavigate();
   const addedCount = location.state?.addedCount || 0;
   const [showToast, setShowToast] = useState(addedCount > 0);
-
-  const { setCartCount } = useCart(); // ✅ use setCartCount from context
+  const { setCartCount } = useCart();
 
   const getCookie = (name) => {
     const value = `; ${document.cookie}`;
@@ -37,7 +36,6 @@ const Cart = () => {
       const res = await axios.get(`http://localhost:5000/api/cart/${userId}`);
       setCartItems(res.data);
 
-      // ✅ Update cart count context
       const count = res.data.reduce((total, item) => total + (item.quantity || 1), 0);
       setCartCount(count);
 
@@ -54,7 +52,6 @@ const Cart = () => {
       const updatedCart = cartItems.filter((i) => i._id !== item._id);
       setCartItems(updatedCart);
 
-      // ✅ Update cart count
       const count = updatedCart.reduce((total, item) => total + (item.quantity || 1), 0);
       setCartCount(count);
 
@@ -77,7 +74,6 @@ const Cart = () => {
       );
       setCartItems(updatedCart);
 
-      // ✅ Update cart count
       const count = updatedCart.reduce((total, item) => total + (item.quantity || 1), 0);
       setCartCount(count);
 
@@ -130,7 +126,17 @@ const Cart = () => {
 
             {cartItems.map((item) => (
               <div key={item._id} className="cart-row">
-                <span>{item.menuId?.name || 'Unnamed Item'}</span>
+
+                {/* IMAGE + NAME */}
+                <span className="cart-image-cell">
+                  <img
+                    src={item.menuId?.image}
+                    alt={item.menuId?.name}
+                    className="cart-item-image"
+                  />
+                  <span>{item.menuId?.name || 'Unnamed Item'}</span>
+                </span>
+
                 <span>₹{item.menuId?.price || 0}</span>
 
                 <span className="qty-control">
@@ -140,11 +146,13 @@ const Cart = () => {
                 </span>
 
                 <span>₹{(item.menuId?.price || 0) * (item.quantity || 1)}</span>
+
                 <span>
                   <button className="cart-remove-btn" onClick={() => handleRemove(item)}>
                     <FaTrashAlt />
                   </button>
                 </span>
+
               </div>
             ))}
 

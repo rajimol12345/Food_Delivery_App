@@ -1,3 +1,4 @@
+// PaymentPage.jsx
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
@@ -49,9 +50,22 @@ const PaymentPage = () => {
         <h4>Order Summary</h4>
         {orderData?.cartItems.map((item, i) => (
           <div key={item._id || i} className="payment-item">
-            <span>{item.name}</span>
-            <span>Qty: {item.quantity}</span>
-            <span>₹{item.price * item.quantity}</span>
+            <img
+              src={item.image || "https://via.placeholder.com/60?text=No+Img"}
+              alt={item.name}
+              className="payment-item-img"
+              onError={(e) => {
+                e.target.onerror = null;
+                e.target.src = "https://via.placeholder.com/60?text=No+Img";
+              }}
+            />
+            <div className="payment-item-details">
+              <span className="payment-item-name">{item.name}</span>
+              <span className="payment-item-qty">Qty: {item.quantity}</span>
+            </div>
+            <span className="payment-item-price">
+              ₹{item.price * item.quantity}
+            </span>
           </div>
         ))}
         <div className="payment-total">
@@ -119,7 +133,7 @@ const PaymentPage = () => {
                     }
                   );
                   const data = await res.json();
-                  return data.id; // order ID from backend
+                  return data.id;
                 } catch (err) {
                   toast.error("Error creating PayPal order");
                   console.error(err);
@@ -161,7 +175,7 @@ const PaymentPage = () => {
       )}
 
       {/* UPI Payment */}
-      {paymentMode === "UPI" && <UpiPayment />}
+      {paymentMode === "UPI" && <UpiPayment amount={totalAmount} />}
     </div>
   );
 };

@@ -1,4 +1,3 @@
-// src/pages/SavedItems.jsx
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { FaHeart, FaRegHeart, FaShoppingCart } from 'react-icons/fa';
@@ -8,6 +7,7 @@ const SavedItems = () => {
   const [savedItems, setSavedItems] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // Function to read token from cookies
   const getCookie = (name) => {
     const value = `; ${document.cookie}`;
     const parts = value.split(`; ${name}=`);
@@ -17,7 +17,7 @@ const SavedItems = () => {
 
   const userId = getCookie('token');
 
-  // Fetch saved items
+  // Fetch saved items on mount or userId change
   useEffect(() => {
     const fetchSavedItems = async () => {
       if (!userId) {
@@ -27,7 +27,7 @@ const SavedItems = () => {
 
       try {
         const res = await axios.get(`http://localhost:5000/api/saved/${userId}`);
-        setSavedItems(res.data); 
+        setSavedItems(res.data);
       } catch (err) {
         console.error('Error fetching saved items:', err);
       } finally {
@@ -38,15 +38,17 @@ const SavedItems = () => {
     fetchSavedItems();
   }, [userId]);
 
-  // Save/Unsave toggle
+  // Save/Unsave toggle handler
   const handleToggleSave = async (productId) => {
     const isSaved = savedItems.some((item) => item.productId._id === productId);
 
     try {
       if (isSaved) {
+        // Remove from saved
         await axios.delete(`http://localhost:5000/api/saved/${userId}/${productId}`);
         setSavedItems((prev) => prev.filter((item) => item.productId._id !== productId));
       } else {
+        // Add to saved
         await axios.post(`http://localhost:5000/api/saved/add`, {
           userId,
           productId,
@@ -59,7 +61,7 @@ const SavedItems = () => {
     }
   };
 
-  // Add to cart
+  // Add item to cart handler
   const handleAddToCart = async (menuId) => {
     try {
       await axios.post(`http://localhost:5000/api/cart/addcart`, {
@@ -89,13 +91,19 @@ const SavedItems = () => {
       <div className="saved-grid">
         {savedItems.length === 0 && <p>No saved items available.</p>}
         {savedItems.map(({ productId }) => {
+          // Check if this product is saved
           const isSaved = savedItems.some((item) => item.productId._id === productId._id);
+
           return (
-            <div key={productId._id} className="saved-card">
-              {/* Save/Unsave Icon */}
+            <div key={productId._id} className="saved-card" style={{ position: 'relative' }}>
+              {/* Wishlist Heart Icon */}
               <span
-                className={`saved-heart-icon ${isSaved ? 'saved animate-heart' : 'not-saved'}`}
-                onClick={() => handleToggleSave(productId._id)}
+                className={`wishlist-icon position-absolute ${isSaved ? 'saved' : ''}`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  handleToggleSave(productId._id);
+                }}
                 title={isSaved ? 'Remove from saved items' : 'Add to saved items'}
                 role="button"
                 tabIndex={0}

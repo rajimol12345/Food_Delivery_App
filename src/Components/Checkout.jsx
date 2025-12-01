@@ -77,17 +77,18 @@ const Checkout = () => {
     }
 
     try {
-      // Save delivery address to user profile
-      await axios.put(`http://localhost:5000/food-ordering-app/api/user/profile/${userId}`, {
-        deliveryAddress: {
-          line1: form.line1,
-          line2: form.line2,
-          city: form.city,
-          pincode: form.pincode,
-        },
-      });
+      await axios.put(
+        `http://localhost:5000/food-ordering-app/api/user/profile/${userId}`,
+        {
+          deliveryAddress: {
+            line1: form.line1,
+            line2: form.line2,
+            city: form.city,
+            pincode: form.pincode,
+          },
+        }
+      );
 
-      // Prepare order data
       const orderData = {
         customer: {
           name: form.name,
@@ -101,7 +102,7 @@ const Checkout = () => {
         })),
       };
 
-      navigate('/payment', { state: orderData }); 
+      navigate('/payment', { state: orderData });
     } catch (err) {
       console.error('Error preparing for payment:', err);
       alert('Something went wrong. Please try again.');
@@ -129,16 +130,36 @@ const Checkout = () => {
         {/* Order Summary */}
         <div className="checkout-summary">
           <h4>Order Summary</h4>
+
           {cartItems.map((item) => (
             <div className="checkout-item" key={item._id}>
-              <span>{item.menuId?.name || "Unnamed Item"}</span>
-              <span>₹{(item.menuId?.price || 0) * (item.quantity || 1)}</span>
+              {/* Item Image */}
+              <img
+                src={item.menuId?.image}
+                alt={item.menuId?.name}
+                className="checkout-item-img"
+                onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.src = 'https://via.placeholder.com/70?text=No+Img';
+                }}
+              />
+
+              <div className="checkout-item-details">
+                <span className="checkout-item-name">{item.menuId?.name}</span>
+                <span className="checkout-item-qty">Qty: {item.quantity}</span>
+              </div>
+
+              <span className="checkout-item-price">
+                ₹{(item.menuId?.price || 0) * (item.quantity || 1)}
+              </span>
             </div>
           ))}
+
           <div className="checkout-total">
             <span>Total</span>
             <span className="price">₹{totalPrice}</span>
           </div>
+
           <button className="checkout-btn" onClick={handleContinue}>Continue</button>
         </div>
       </div>

@@ -1,22 +1,25 @@
-import React from 'react';
+import React from "react";
+import { FaFacebookF, FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa";
+
 const Footer = () => {
   return (
     <footer className="footer">
       <div className="footer-container">
-        {/* Logo / Branding */}
+
+        {/* Logo + Description */}
         <div className="footer-section">
-          <h3 className="footer-logo">EatYoWay</h3>
-          <p>Delicious food delivered fast at your doorstep.</p>
+          <h2 className="footer-logo">EatYoWay</h2>
+          <p>Your favorite meals delivered fresh and fast.</p>
         </div>
 
-        {/* Navigation Links */}
+        {/* Quick Links */}
         <div className="footer-section">
           <h3>Quick Links</h3>
           <ul>
             <li><a href="/">Home</a></li>
             <li><a href="/menu">Menu</a></li>
-            <li><a href="/about">About Us</a></li>
-            <li><a href="/contact">Contact</a></li>
+            <li><a href="/restaurants">Restaurants</a></li>
+            <li><a href="/offers">Offers</a></li>
           </ul>
         </div>
 
@@ -24,23 +27,25 @@ const Footer = () => {
         <div className="footer-section">
           <h3>Contact</h3>
           <p>Email: support@eatyoway.com</p>
-          <p>Phone: +1 234 567 8901</p>
-          <p>Location: New York, USA</p>
+          <p>Phone: +91 98765 43210</p>
+          <p>Location: Chennai, India</p>
         </div>
 
-        {/* Social Media */}
+        {/* Social Icons */}
         <div className="footer-section">
           <h3>Follow Us</h3>
           <div className="social-icons">
-            <a href="#"><i className="fab fa-facebook-f"></i></a>
-            <a href="#"><i className="fab fa-instagram"></i></a>
-            <a href="#"><i className="fab fa-twitter"></i></a>
+            <a href="#"><FaFacebookF /></a>
+            <a href="#"><FaInstagram /></a>
+            <a href="#"><FaTwitter /></a>
+            <a href="#"><FaYoutube /></a>
           </div>
         </div>
+
       </div>
 
       <div className="footer-bottom">
-        <p>&copy; {new Date().getFullYear()} EatYoWay. All rights reserved.</p>
+        <p>© {new Date().getFullYear()} EatYoWay — All Rights Reserved.</p>
       </div>
     </footer>
   );

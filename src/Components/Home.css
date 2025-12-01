@@ -1,0 +1,347 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background:transparent;
+}
+
+/* Hero Section */
+.hero {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+/* Carousel */
+.carousel {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.carousel-slide {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 1.8s ease-in-out;
+}
+
+.carousel-slide.active {
+  opacity: 1;
+}
+
+/* Overlay */
+.overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 2;
+}
+
+/* Hero Content */
+.hero-content {
+  color: white;
+  animation: slideUp 1.6s ease forwards;
+  opacity: 0;
+  z-index: 3;
+}
+/* ================================
+   Food Collection Section
+==================================*/
+
+.food-section {
+  padding: 60px 5%;
+  background: #fafafa;
+  text-align: center;
+}
+
+.food-title {
+  font-size: 2.4rem;
+  font-weight: 700;
+  margin-bottom: 40px;
+  color: #222;
+}
+
+/* Grid Layout */
+.food-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 30px;
+}
+
+/* Food Card */
+.food-card {
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  display: block;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+  position: relative;
+}
+
+/* Hover Animation */
+.food-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+}
+
+/* Image Box */
+.food-img-box {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+}
+
+.food-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: scale 0.5s ease;
+}
+
+/* Zoom image on hover */
+.food-card:hover .food-img {
+  scale: 1.1;
+}
+
+/* Food Info */
+.food-info {
+  padding: 18px 16px;
+  text-align: left;
+}
+
+.food-info h4 {
+  margin-bottom: 6px;
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.food-info p {
+  margin-bottom: 12px;
+  font-size: 0.95rem;
+  color: #777;
+}
+
+/* View Button */
+.view-btn {
+  padding: 10px 18px;
+  background: #ff4d4d;
+  color: white;
+  font-size: 0.9rem;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.3s;
+}
+
+.view-btn:hover {
+  background: #e63c3c;
+  transform: scale(1.07);
+}
+
+/* Fade In Animation */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.8s ease forwards;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .food-title {
+    font-size: 1.9rem;
+  }
+}
+
+@keyframes slideUp {
+  0% { transform: translateY(40px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+.title {
+  font-size: 3.8rem;
+  font-weight: 700;
+  text-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+}
+
+.subtitle {
+  font-size: 1.4rem;
+  margin: 10px 0 20px 0;
+  opacity: 0.9;
+}
+/* Floating Burger Animation */
+.burger {
+  position: absolute;
+  bottom: 30px;
+  right: 50px;
+  width: 230px;
+  animation: floatBurger 3.5s ease-in-out infinite;
+  z-index: 3;
+}
+
+@keyframes floatBurger {
+  0% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-18px) rotate(3deg); }
+  100% { transform: translateY(0) rotate(0deg); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .title { font-size: 2.3rem; }
+  .burger { width: 160px; right: 20px; }
+}
+.fade-text {
+  animation: fadeText 1s ease-in-out;
+}
+
+@keyframes fadeText {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+/* 3D OFFER POPUP */
+.offer-popup-3d {
+  position: fixed;
+  bottom: 30px;
+  left: 30px;
+  background: linear-gradient(145deg, #ffffff, #fff5f5);
+  padding: 22px;
+  width: 280px;
+  border-radius: 18px;
+  box-shadow: 0 10px 35px rgba(255, 76, 76, 0.3);
+  border: 2px solid #ffe5e5;
+  animation: popupFloat 1s ease forwards, popupGlow 3s infinite ease-in-out;
+  transform-style: preserve-3d;
+  z-index: 9999;
+  overflow: hidden;
+}
+
+/* Floating 3D animation */
+@keyframes popupFloat {
+  0% { transform: translateY(80px) scale(0.6) rotateX(25deg); opacity: 0; }
+  100% { transform: translateY(0) scale(1) rotateX(0deg); opacity: 1; }
+}
+
+/* Glow effect */
+@keyframes popupGlow {
+  0% { box-shadow: 0 0 10px rgba(255, 0, 0, 0.35); }
+  50% { box-shadow: 0 0 22px rgba(255, 0, 0, 0.55); }
+  100% { box-shadow: 0 0 10px rgba(255, 0, 0, 0.35); }
+}
+
+/* Shapes */
+.popup-shape {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.35;
+  animation: floatShape 6s infinite linear;
+}
+
+.shape-1 {
+  width: 90px;
+  height: 90px;
+  background: #ff7b7b;
+  top: -20px;
+  right: -30px;
+}
+
+.shape-2 {
+  width: 60px;
+  height: 60px;
+  background: #ffd1d1;
+  bottom: -15px;
+  left: -20px;
+}
+
+@keyframes floatShape {
+  0% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-12px) rotate(25deg); }
+  100% { transform: translateY(0px) rotate(0deg); }
+}
+
+/* Offer Image */
+.offer-img {
+  width: 80px;
+  display: block;
+  margin: 0 auto 10px;
+  animation: bounceImg 2s infinite ease-in-out;
+}
+
+@keyframes bounceImg {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-8px) scale(1.05); }
+  100% { transform: translateY(0); }
+}
+
+/* Close button */
+.close-offer {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  color: #444;
+  cursor: pointer;
+}
+
+.offer-popup-3d h4 {
+  text-align: center;
+  margin: 5px 0;
+  color: #e63946;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.offer-popup-3d p {
+  text-align: center;
+  font-size: 14px;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+/* Button */
+.offer-btn {
+  display: block;
+  text-align: center;
+  padding: 10px;
+  background: #ff4d4d;
+  color: #fff;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.3s ease;
+}
+
+.offer-btn:hover {
+  background: #e63939;
+  transform: scale(1.08);
+}

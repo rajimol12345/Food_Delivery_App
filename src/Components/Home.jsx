@@ -3,9 +3,15 @@ import axios from 'axios';
 import Search from './Search';
 import FoodCategory from './FoodCategory';
 import RestaurantList from './RestaurantList';
-import img1 from './img/18165.jpg';
-import img2 from './img/Burgers.webp';
-import img3 from './img/pizza.jpg';
+
+import img1 from './img/hero1.jpg';
+import img2 from './img/hero2.avif';
+import img3 from './img/hero3.jpg';
+
+import burgerImg from './img/burger.png';
+import offerSticker from './img/offer.png';   // ⭐ Add this image
+
+import './Home.css';
 
 const Home = () => {
   const [foods, setFoods] = useState([]);
@@ -13,46 +19,50 @@ const Home = () => {
   const [restaurants, setRestaurants] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [showOffer, setShowOffer] = useState(false);
+
+  const carouselImages = [img1, img2, img3];
+
+  const heroTexts = [
+    { title: "Order Fresh & Hot Food Anytime", subtitle: "Fast Delivery • Tasty Meals • Best Restaurants Near You" },
+    { title: "Get Your Favourite Meals Delivered", subtitle: "Tasty • Affordable • Delivered in Minutes" },
+    { title: "Discover Delicious Food Near You", subtitle: "Fresh Ingredients • Best Chefs • Great Taste" }
+  ];
 
   useEffect(() => {
     axios.get('/Foodcollection.json')
-      .then(response => {
-        setFoods(response.data);
-        setLoading(false);
-      })
+      .then(res => { setFoods(res.data); setLoading(false); })
       .catch(() => setLoading(false));
 
     axios.get('/restaurant.json')
-      .then(response => setRestaurants(response.data))
+      .then(res => setRestaurants(res.data))
       .catch(() => {});
 
-    axios.get('/food.json')
-      .then(res => console.log('Food categories loaded (optional)', res.data))
-      .catch(() => {});
+    // show popup
+    setTimeout(() => setShowOffer(true), 2000);
   }, []);
 
-  // This function will be called by Search component to update search results
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide(prev => (prev + 1) % carouselImages.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
   const handleSearch = (type, query) => {
     if (!query) {
       setIsSearching(false);
       return;
     }
 
-    const filtered = restaurants.filter(restaurant => {
-      const name = restaurant.name.toLowerCase();
-      const cuisine = restaurant.cuisine.toLowerCase();
-      const location = restaurant.address?.toLowerCase();
-      const dishList = restaurant.specials?.join(' ').toLowerCase() || '';
-
-      const searchTerm = query.toLowerCase();
-
-      return (
-        name.includes(searchTerm) ||
-        cuisine.includes(searchTerm) ||
-        location?.includes(searchTerm) ||
-        dishList.includes(searchTerm)
-      );
-    });
+    const searchTerm = query.toLowerCase();
+    const filtered = restaurants.filter(res =>
+      res.name.toLowerCase().includes(searchTerm) ||
+      res.cuisine.toLowerCase().includes(searchTerm) ||
+      res.address?.toLowerCase().includes(searchTerm) ||
+      (res.specials?.join(" ") || "").toLowerCase().includes(searchTerm)
+    );
 
     setSearchResults(filtered);
     setIsSearching(true);
@@ -60,67 +70,77 @@ const Home = () => {
 
   return (
     <>
-     {/* Pass the search handler to Search component */}
       <Search onSearch={handleSearch} />
-        <FoodCategory />
-      {/* Carousel Section */}
-      <div id="foodCarousel" className="carousel slide mb-5" data-bs-ride="carousel">
-        <div className="carousel-inner">
-          <div className="carousel-item active">
-            <img src={img3} className="d-block w-100" alt="Burger" style={{ height: '600px', objectFit: 'cover'}} />
-            <div className="carousel-caption d-none d-md-block">
-              <h5>Delicious Pizza</h5>
-              <p className="fs-2 fst-italic">Hot, cheesy, and delivered fast to your door.</p>
-            </div>
-          </div>
-          <div className="carousel-item">
-            <img src={img2} className="d-block w-100" alt="Chocolate" style={{ height: '600px', objectFit: 'cover' }} />
-            <div className="carousel-caption d-none d-md-block">
-              <h5>Juicy Burgers</h5>
-              <p className="fs-2 fst-italic">Loaded with flavor and grilled to perfection.</p>
-            </div>
-          </div>
-          <div className="carousel-item">
-            <img src={img1} className="d-block w-100" alt="Pizza" style={{ height: '600px', objectFit: 'cover' }} />
-            <div className="carousel-caption d-none d-md-block">
-              <h5>Sweet Desserts</h5>
-              <p className="fs-2 fst-italic">Finish your meal with a delightful dessert.</p>
-            </div>
-          </div>
+      <FoodCategory />
+
+      {/* HERO SECTION */}
+      <section className="hero">
+        <div className="carousel">
+          {carouselImages.map((img, index) => (
+            <div
+              key={index}
+              className={`carousel-slide ${currentSlide === index ? "active" : ""}`}
+              style={{ backgroundImage: `url(${img})` }}
+            ></div>
+          ))}
         </div>
 
-        {/* Carousel Controls */}
-        <button className="carousel-control-prev" type="button" data-bs-target="#foodCarousel" data-bs-slide="prev">
-          <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span className="visually-hidden">Previous</span>
-        </button>
-        <button className="carousel-control-next" type="button" data-bs-target="#foodCarousel" data-bs-slide="next">
-          <span className="carousel-control-next-icon" aria-hidden="true"></span>
-          <span className="visually-hidden">Next</span>
-        </button>
-      </div>
+        <div className="overlay"></div>
 
-      {/* Food Collection Section */}
-      <section className="section">
-        <h3 className="section-title">Our Food Collection</h3>
+        <div className="hero-content">
+          <h1 key={currentSlide} className="title fade-text">
+            {heroTexts[currentSlide].title}
+          </h1>
+          <p key={currentSlide + "-sub"} className="subtitle fade-text">
+            {heroTexts[currentSlide].subtitle}
+          </p>
+        </div>
+
+        <img src={burgerImg} className="burger" alt="burger" />
+      </section>
+
+      {/* FOOD COLLECTION */}
+      <section className="food-section">
+        <h3 className="food-title">Explore Our Food Collection</h3>
+
         {loading ? (
-          <p className="center-text">Loading food collection...</p>
+          <p className="center-text">Loading...</p>
         ) : (
-          <div className="grid">
+          <div className="food-grid">
             {foods.map(food => (
-              <div key={food.id} className="card">
-                <img src={food.image} alt={food.name} className="card-img" />
-                <div className="card-body">
-                  <h5>{food.name}</h5>
-                  <p className="text-muted">{food.category}</p>
+              <a href={`/food/${food.id}`} key={food.id} className="food-card fade-in">
+                <div className="food-img-box">
+                  <img src={food.image} alt={food.name} className="food-img" />
                 </div>
-              </div>
+
+                <div className="food-info">
+                  <h4>{food.name}</h4>
+                  <p>{food.category}</p>
+                  <button className="view-btn">View Details</button>
+                </div>
+              </a>
             ))}
           </div>
         )}
       </section>
 
-      {/* Restaurant List Section */}
+      {/* ⭐ OFFER POPUP — 3D + SHAPES + IMAGE */}
+      {showOffer && (
+        <div className="offer-popup-3d">
+          <span className="popup-shape shape-1"></span>
+          <span className="popup-shape shape-2"></span>
+
+          <button className="close-offer" onClick={() => setShowOffer(false)}>×</button>
+
+          <img src={offerSticker} className="offer-img" alt="special-offer" />
+
+          <h4>🔥 Special Deal!</h4>
+          <p>Enjoy <b>50% OFF</b> on your first food order.</p>
+
+          <a href="/offers" className="offer-btn">Grab Now</a>
+        </div>
+      )}
+
       <RestaurantList
         restaurants={restaurants}
         searchResults={searchResults}
