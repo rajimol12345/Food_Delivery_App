@@ -19,7 +19,7 @@ const MyOrders = () => {
     return null;
   };
 
-  const userId = getCookie("token"); // Make sure this is the actual user ID
+  const userId = getCookie("token");
 
   useEffect(() => {
     if (userId) {
@@ -50,14 +50,16 @@ const MyOrders = () => {
   const handleRatingSubmit = async (orderId, value) => {
     try {
       await axios.post(`/api/rate`, {
-        restaurantId: orderId, // match backend field name
+        restaurantId: orderId,
         userId,
         rating: value,
       });
-      alert(`Thanks for rating this order ${value} stars!`);
+      // Don't show alert here - Rating component will handle it
+      // Optionally refresh orders
+      fetchOrders();
     } catch (err) {
       console.error(err);
-      alert("Failed to submit rating.");
+      throw err; // Let Rating component handle the error
     }
   };
 
@@ -125,7 +127,7 @@ const MyOrders = () => {
                     <span className="item-name">{item.name}</span>
                     <span className="item-qty">Qty: {item.quantity}</span>
                     <span className="item-price">
-                      ₹{item.price * item.quantity}
+                      ₹{(item.price * item.quantity).toFixed(2)}
                     </span>
                   </div>
                 </div>
@@ -138,7 +140,11 @@ const MyOrders = () => {
           {/* ===== Footer ===== */}
           <div className="order-footer">
             <div className="order-total">
-              <strong>Total:</strong> ₹{order.totalAmount}
+              <strong>Total:</strong> ₹{order.totalAmount || order.amount || 
+                (Array.isArray(order.items) 
+                  ? order.items.reduce((sum, item) => sum + (item.price * item.quantity), 0).toFixed(2)
+                  : '0.00'
+                )}
             </div>
 
             <div className="order-rating-right">
@@ -146,7 +152,8 @@ const MyOrders = () => {
                 <strong>Rate:</strong>
               </p>
               <Rating
-                restaurantId={order._id} // pass order ID as restaurantId
+                restaurantId={order._id}
+                onRatingSubmit={(value) => handleRatingSubmit(order._id, value)}
               />
             </div>
           </div>

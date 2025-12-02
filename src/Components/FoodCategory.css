@@ -1,12 +1,26 @@
+/* Container */
 .food-category-container {
   padding: 20px;
   position: relative;
 }
 
+/* Header */
 .food-category-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 10px;
+}
+
+.food-category-header h2 {
+  font-size: 22px;
+  color: #333;
+}
+
+/* Scroll Buttons */
+.scroll-buttons {
+  display: flex;
+  gap: 10px;
 }
 
 .scroll-buttons button {
@@ -14,10 +28,9 @@
   border: 1px solid #ccc;
   border-radius: 50%;
   font-size: 18px;
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
   cursor: pointer;
-  margin-left: 8px;
   box-shadow: 0 1px 5px rgba(0,0,0,0.2);
   transition: background 0.2s ease;
 }
@@ -26,6 +39,7 @@
   background: #f0f0f0;
 }
 
+/* Horizontal Scroll */
 .food-category-scroll {
   display: flex;
   overflow-x: auto;
@@ -33,95 +47,77 @@
   padding: 10px 0;
   scroll-behavior: smooth;
 
-  /* Hide scrollbar for WebKit (Chrome, Safari) */
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none;  /* IE 10+ */
 }
 
+.food-category-scroll::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
+}
+
+/* Category Card */
 .food-category-card {
   flex: 0 0 auto;
   width: 100px;
   text-align: center;
+  cursor: pointer;
 }
 
 .food-category-card img {
   width: 100px;
   height: 100px;
   object-fit: cover;
-  border-radius: 50%; /* Makes the image round */
-  border: 2px solid #ddd; /* Optional: adds a light border */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional: adds soft shadow */
+  border-radius: 50%;
+  border: 2px solid #ddd;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease;
 }
 
 .food-category-card img:hover {
-  transform: scale(1.05); /* Optional: adds hover zoom effect */
+  transform: scale(1.05);
 }
 
-.food-category-scroll::-webkit-scrollbar {
-  display: none; /* Chrome, Safari */
-}
-.category-list {
-  display: flex;
-  gap: 15px;
-  flex-wrap: wrap;
-  margin-bottom: 20px;
-}
-
-.category-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  cursor: pointer;
-}
-
-.category-card img {
-  width: 80px;
-  height: 80px;
-  object-fit: cover;
-  border-radius: 50%;
-  border: 2px solid #ddd;
-}
-
-.menu-cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 20px;
-}
-
-.menu-card {
-  background: #fff;
-  border-radius: 10px;
-  padding: 10px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  text-align: center;
-}
-
-.menu-card img {
-  width: 100%;
-  height: 150px;
-  object-fit: cover;
-  border-radius: 10px;
-}
-
-.menu-card h3 {
-  margin: 10px 0 5px;
-}
-
-.menu-card p {
+.food-category-card p {
+  margin-top: 6px;
   font-size: 14px;
+  font-weight: 500;
   color: #555;
 }
 
-.menu-card h4 {
-  color: green;
+/* Responsive Layout */
+@media (max-width: 768px) {
+  .food-category-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .food-category-scroll {
+    gap: 12px;
+  }
+
+  .food-category-card {
+    width: 80px;
+  }
+
+  .food-category-card img {
+    width: 80px;
+    height: 80px;
+  }
+
+  .scroll-buttons button {
+    width: 32px;
+    height: 32px;
+    font-size: 16px;
+  }
 }
 
-.menu-card button {
-  background: #007bff;
-  color: white;
-  border: none;
-  padding: 8px 15px;
-  border-radius: 5px;
-  cursor: pointer;
+@media (max-width: 480px) {
+  .food-category-container {
+    padding: 15px;
+  }
+
+  .food-category-card p {
+    font-size: 12px;
+  }
 }

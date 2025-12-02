@@ -9,8 +9,11 @@ const Search = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!query.trim()) return;
-    navigate(`/results?q=${encodeURIComponent(query)}`);
+
+    const trimmed = query.trim();
+    if (!trimmed) return;
+
+    navigate(`/results?q=${encodeURIComponent(trimmed)}`);
   };
 
   return (
@@ -21,8 +24,9 @@ const Search = () => {
           placeholder="Search menu..."
           value={query}
           onChange={(e) => setQuery(e.target.value)}
+          autoComplete="off"
         />
-        <button type="submit">
+        <button type="submit" aria-label="Search">
           <FaSearch />
         </button>
       </form>

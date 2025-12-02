@@ -1,109 +1,508 @@
+/* Container */
 .order-success-container {
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
-  background: linear-gradient(135deg, #f8f8f8, #fff9f2);
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #ffffff 0%, #f2f2f2 100%);
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
 }
 
+/* Confetti Animation */
+.confetti-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.confetti {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  top: -10px;
+  animation: confetti-fall 3s linear infinite;
+  opacity: 0;
+}
+
+@keyframes confetti-fall {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+/* Success Card */
 .success-card {
   background: #ffffff;
-  padding: 40px 30px;
-  border-radius: 20px;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+  border-radius: 24px;
+  padding: 3rem 2.5rem;
+  max-width: 600px;
+  width: 100%;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  position: relative;
+  z-index: 2;
+  animation: slideUp 0.6s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Loading State */
+.loading-card {
   text-align: center;
-  max-width: 400px;
-  width: 90%;
-  animation: popIn 0.5s ease forwards;
+  padding: 4rem 2rem;
 }
 
-@keyframes popIn {
-  0% { transform: scale(0.5); opacity: 0; }
-  100% { transform: scale(1); opacity: 1; }
+.loader {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #08CB00;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 1.5rem;
 }
 
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Checkmark Animation */
 .checkmark-wrapper {
-  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+  animation: scaleIn 0.5s ease-out 0.3s backwards;
 }
 
-.checkmark svg {
-  width: 80px;
-  height: 80px;
-  stroke: #28a745;
-  stroke-width: 4;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  stroke-dasharray: 166;
-  stroke-dashoffset: 166;
-  animation: draw 0.6s ease forwards 0.3s;
+@keyframes scaleIn {
+  from {
+    transform: scale(0);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.checkmark-circle-wrapper {
+  position: relative;
+  width: 100px;
+  height: 100px;
+}
+
+.checkmark {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  display: block;
+  stroke-width: 3;
+  stroke: #10b981;
+  stroke-miterlimit: 10;
+  box-shadow: inset 0 0 0 #10b981;
+  animation: fill 0.4s ease-in-out 0.4s forwards, scale 0.3s ease-in-out 0.9s both;
 }
 
 .checkmark-circle {
   stroke-dasharray: 166;
   stroke-dashoffset: 166;
-  stroke-width: 4;
+  stroke-width: 3;
   stroke-miterlimit: 10;
-  stroke: #28a745;
+  stroke: #10b981;
   fill: none;
-  animation: draw 0.6s ease forwards;
+  animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
 }
 
 .checkmark-check {
+  transform-origin: 50% 50%;
   stroke-dasharray: 48;
   stroke-dashoffset: 48;
-  animation: drawCheck 0.4s ease forwards 0.6s;
+  stroke: #fff;
+  stroke-width: 3;
+  animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
 }
 
-@keyframes draw {
-  to { stroke-dashoffset: 0; }
+@keyframes stroke {
+  100% { stroke-dashoffset: 0; }
 }
 
-@keyframes drawCheck {
-  to { stroke-dashoffset: 0; }
+@keyframes scale {
+  0%, 100% { transform: none; }
+  50% { transform: scale3d(1.1, 1.1, 1); }
 }
 
-.success-card h1 {
-  font-size: 28px;
-  color: #333;
-  margin-bottom: 10px;
+@keyframes fill {
+  100% {
+    box-shadow: inset 0 0 0 50px #10b981;
+  }
 }
 
-.success-card p {
-  font-size: 16px;
-  color: #666;
-  margin-bottom: 20px;
+/* Title and Subtitle */
+.success-title {
+  font-size: 2.5rem;
+  color: #1f2937;
+  margin-bottom: 0.75rem;
+  text-align: center;
+  font-weight: 700;
+  animation: fadeInDown 0.5s ease-out 0.5s backwards;
 }
 
+.success-subtitle {
+  font-size: 1.1rem;
+  color: #6b7280;
+  text-align: center;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+  animation: fadeInDown 0.5s ease-out 0.6s backwards;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Order ID Badge */
+.order-id-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: linear-gradient(135deg, #08CB00 0%, #0DAF00 100%);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 50px;
+  margin: 0 auto 2rem;
+  display: flex;
+  justify-content: center;
+  font-weight: 600;
+  animation: fadeIn 0.5s ease-out 0.7s backwards;
+  box-shadow: 0 4px 15px rgba(8, 203, 0, 0.4);
+}
+
+.badge-label {
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+.badge-value {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Order Info Section */
 .order-info {
-  background: #f9f9f9;
-  padding: 15px 20px;
-  border-radius: 15px;
-  margin-bottom: 25px;
-  text-align: left;
+  background: #f9fafb;
+  border-radius: 16px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  animation: fadeIn 0.5s ease-out 0.8s backwards;
 }
 
-.order-info h2 {
-  font-size: 18px;
-  margin-bottom: 10px;
+.info-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
 }
 
-.order-info p {
-  font-size: 15px;
-  margin: 5px 0;
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: white;
+  padding: 1.25rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.info-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.info-icon {
+  font-size: 2rem;
+  flex-shrink: 0;
+}
+
+.info-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.info-label {
+  font-size: 0.85rem;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.info-value {
+  font-size: 1.1rem;
+  color: #1f2937;
+  font-weight: 700;
+}
+
+/* Restaurant Info */
+.restaurant-info {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem;
+  background: white;
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.restaurant-icon {
+  font-size: 1.5rem;
+}
+
+.restaurant-name {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+/* Order Items Section */
+.order-items-section {
+  margin-bottom: 1.5rem;
+}
+
+.items-title {
+  font-size: 1.1rem;
+  color: #1f2937;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.items-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.item-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease;
+}
+
+.item-card:hover {
+  transform: translateX(5px);
+}
+
+.item-info {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex: 1;
+}
+
+.item-name {
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.item-quantity {
+  color: #6b7280;
+  font-size: 0.9rem;
+  background: #f3f4f6;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+}
+
+.item-price {
+  font-weight: 700;
+  color: #10b981;
+  font-size: 1rem;
+}
+
+/* Address Section */
+.address-section {
+  margin-top: 1.5rem;
+}
+
+.address-title {
+  font-size: 1.1rem;
+  color: #1f2937;
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+}
+
+.address-text {
+  padding: 1rem;
+  background: white;
+  border-radius: 10px;
+  color: #4b5563;
+  line-height: 1.6;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+/* Action Buttons */
+.action-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  animation: fadeIn 0.5s ease-out 0.9s backwards;
+}
+
+.track-btn,
+.home-btn {
+  padding: 1rem 1.5rem;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.track-btn {
+  background: white;
+  color: #08CB00;
+  border: 2px solid #08CB00;
+}
+
+.track-btn:hover {
+  background: #08CB00;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(8, 203, 0, 0.4);
 }
 
 .home-btn {
-  background: #ff6f61;
+  background: linear-gradient(135deg, #08CB00 0%, #0DAF00 100%);
   color: white;
-  border: none;
-  padding: 12px 25px;
-  border-radius: 50px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: 0.3s ease;
 }
 
 .home-btn:hover {
-  background: #ff4b3b;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(8, 203, 0, 0.5);
+}
+
+.btn-icon {
+  font-size: 1.2rem;
+}
+
+/* Thank You Message */
+.thank-you-message {
+  text-align: center;
+  padding-top: 1.5rem;
+  border-top: 2px dashed #e5e7eb;
+  animation: fadeIn 0.5s ease-out 1s backwards;
+}
+
+.thank-you-message p {
+  color: #6b7280;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .success-card {
+    padding: 2rem 1.5rem;
+  }
+
+  .success-title {
+    font-size: 2rem;
+  }
+
+  .success-subtitle {
+    font-size: 1rem;
+  }
+
+  .info-row {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .action-buttons {
+    grid-template-columns: 1fr;
+  }
+
+  .order-id-badge {
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .order-success-container {
+    padding: 1rem;
+  }
+
+  .success-card {
+    padding: 1.5rem 1rem;
+  }
+
+  .checkmark {
+    width: 80px;
+    height: 80px;
+  }
+
+  .success-title {
+    font-size: 1.75rem;
+  }
+
+  .order-info {
+    padding: 1.5rem;
+  }
+
+  .info-item {
+    padding: 1rem;
+  }
+
+  .info-icon {
+    font-size: 1.5rem;
+  }
+
+  .info-value {
+    font-size: 1rem;
+  }
 }

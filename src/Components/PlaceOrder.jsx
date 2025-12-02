@@ -36,7 +36,6 @@ const PlaceOrder = () => {
     0
   );
 
-  // Extract restaurant info from first item in the cart
   const restaurantId = orderData.cartItems[0]?.restaurantId || null;
   const restaurantName = orderData.cartItems[0]?.restaurantName || "Unknown Restaurant";
 
@@ -57,7 +56,7 @@ const PlaceOrder = () => {
       const payload = {
         userId,
         restaurantId,
-        restaurantName, // ⭐ FIX ADDED
+        restaurantName,
         address: {
           name,
           line1: address,
@@ -72,7 +71,7 @@ const PlaceOrder = () => {
           price: item.price,
           quantity: item.quantity,
         })),
-        totalAmount: total,
+        totalAmount: total,   // ⭐ FIXED (matches backend)
         paymentMethod: orderData.paymentMode || 'N/A',
       };
 
@@ -81,8 +80,10 @@ const PlaceOrder = () => {
         payload
       );
 
+      const placedOrder = response.data.order;
+
       socket.emit('newOrder', {
-        orderId: response.data?.orderId || 'N/A',
+        orderId: placedOrder.orderId,
         restaurantName,
         customerName: name,
         totalAmount: total,
@@ -94,19 +95,17 @@ const PlaceOrder = () => {
       setTimeout(() => {
         navigate('/order-success', {
           state: {
-            orderId: response.data?.orderId || 'N/A',
-            restaurantName,
-            customerName: name,
-            totalAmount: total,
-            items: orderData.cartItems,
-            deliveryAddress: { name, address, city, pincode },
+            orderId: placedOrder.orderId,
+            restaurantName: placedOrder.restaurantName,
+            totalAmount: placedOrder.totalAmount,
+            items: placedOrder.items,
+            deliveryAddress: placedOrder.address,
+            deliveryTime: placedOrder.deliveryTime
           },
         });
       }, 1500);
     } catch (err) {
-      toast.error(
-        err?.response?.data?.error || 'Error placing order. Please try again.'
-      );
+      toast.error(err?.response?.data?.error || 'Error placing order.');
       console.error('Order Error:', err?.response?.data);
     }
   };

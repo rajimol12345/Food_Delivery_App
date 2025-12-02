@@ -114,7 +114,7 @@ const Checkout = () => {
 
   return (
     <div className="checkout-container">
-      <h2 className="checkout-title">🧾 Checkout</h2>
+      <h2 className="checkout-title"> Checkout</h2>
 
       <div className="checkout-grid">
         {/* Delivery Form */}

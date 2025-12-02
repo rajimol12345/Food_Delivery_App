@@ -9,7 +9,7 @@ import img2 from './img/hero2.avif';
 import img3 from './img/hero3.jpg';
 
 import burgerImg from './img/burger.png';
-import offerSticker from './img/offer.png';   // ⭐ Add this image
+import offerSticker from './img/offer.png';   //  Add this image
 
 import './Home.css';
 
@@ -124,7 +124,7 @@ const Home = () => {
         )}
       </section>
 
-      {/* ⭐ OFFER POPUP — 3D + SHAPES + IMAGE */}
+      {/*  OFFER POPUP — 3D + SHAPES + IMAGE */}
       {showOffer && (
         <div className="offer-popup-3d">
           <span className="popup-shape shape-1"></span>
@@ -134,7 +134,7 @@ const Home = () => {
 
           <img src={offerSticker} className="offer-img" alt="special-offer" />
 
-          <h4>🔥 Special Deal!</h4>
+          <h4>Special Deal!</h4>
           <p>Enjoy <b>50% OFF</b> on your first food order.</p>
 
           <a href="/offers" className="offer-btn">Grab Now</a>

@@ -4,13 +4,21 @@ import axios from "axios";
 
 axios.defaults.baseURL = "http://localhost:5000";
 
-const Rating = ({ restaurantId }) => {
+const Rating = ({ restaurantId, onRatingSubmit }) => {
   const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(null);
   const [average, setAverage] = useState(0);
   const [loading, setLoading] = useState(true);
 
-  const userId = localStorage.getItem("userId");
+  // Utility to get cookie value by name (same as MyOrders)
+  const getCookie = (name) => {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(";").shift();
+    return null;
+  };
+
+  const userId = getCookie("token") || localStorage.getItem("userId");
 
   useEffect(() => {
     if (!restaurantId) return;
@@ -25,18 +33,23 @@ const Rating = ({ restaurantId }) => {
 
         // Load logged-in user's rating
         if (userId) {
-          const userRes = await axios.get(`/api/rate/${restaurantId}/${userId}`);
-          setRating(userRes.data.rating ?? 0);
+          try {
+            const userRes = await axios.get(`/api/rate/${restaurantId}/${userId}`);
+            setRating(userRes.data.rating ?? 0);
+          } catch (err) {
+            // User hasn't rated yet - this is fine
+            setRating(0);
+          }
         }
       } catch (err) {
         console.error("Rating load failed:", err);
+      } finally {
+        setLoading(false);
       }
-
-      setLoading(false);
     };
 
     loadRatings();
-  }, [restaurantId]); // removed userId dependency to avoid popup loop
+  }, [restaurantId, userId]);
 
   const submitRating = async (value) => {
     if (!userId) {
@@ -47,17 +60,22 @@ const Rating = ({ restaurantId }) => {
     setRating(value);
 
     try {
-      await axios.post("/api/rate", {
-        restaurantId,
-        userId,
-        rating: value,
-      });
+      // If onRatingSubmit prop is provided, use it (from MyOrders)
+      if (onRatingSubmit) {
+        await onRatingSubmit(value);
+      } else {
+        // Otherwise, handle submission directly
+        await axios.post("/api/rate", {
+          restaurantId,
+          userId,
+          rating: value,
+        });
+        alert("Rating saved!");
+      }
 
       // Refresh average rating
       const avg = await axios.get(`/api/rate/average/${restaurantId}`);
       setAverage(avg.data.average ?? 0);
-
-      alert("Rating saved!");
     } catch (err) {
       console.error("Rating submission error:", err);
       alert("Failed to submit rating.");
@@ -68,7 +86,7 @@ const Rating = ({ restaurantId }) => {
 
   return (
     <div style={{ textAlign: "left" }}>
-      <div style={{ display: "flex", flexDirection: "row" }}>
+      <div style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
         {[...Array(5)].map((_, index) => {
           const value = index + 1;
 
@@ -87,7 +105,7 @@ const Rating = ({ restaurantId }) => {
       </div>
 
       <p style={{ marginTop: 6 }}>
-        ⭐ Average Rating: <b>{average.toFixed(1)}</b> / 5
+        Average Rating: <b>{average.toFixed(1)}</b> / 5
       </p>
     </div>
   );

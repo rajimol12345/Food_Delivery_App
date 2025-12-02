@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { FaHeart, FaRegHeart, FaShoppingCart } from 'react-icons/fa';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './SavedItems.css';
 
 const SavedItems = () => {
@@ -30,6 +32,7 @@ const SavedItems = () => {
         setSavedItems(res.data);
       } catch (err) {
         console.error('Error fetching saved items:', err);
+        toast.error('Failed to fetch saved items');
       } finally {
         setLoading(false);
       }
@@ -47,6 +50,7 @@ const SavedItems = () => {
         // Remove from saved
         await axios.delete(`http://localhost:5000/api/saved/${userId}/${productId}`);
         setSavedItems((prev) => prev.filter((item) => item.productId._id !== productId));
+        toast.info('Removed from wishlist');
       } else {
         // Add to saved
         await axios.post(`http://localhost:5000/api/saved/add`, {
@@ -55,9 +59,11 @@ const SavedItems = () => {
         });
         const productData = await axios.get(`http://localhost:5000/api/products/${productId}`);
         setSavedItems((prev) => [...prev, { productId: productData.data }]);
+        toast.success('Added to wishlist');
       }
     } catch (err) {
       console.error('Error toggling saved item:', err);
+      toast.error('Failed to update wishlist');
     }
   };
 
@@ -69,10 +75,10 @@ const SavedItems = () => {
         menuId,
         quantity: 1,
       });
-      alert('Item added to cart!');
+      toast.success('Item added to cart!');
     } catch (err) {
       console.error('Error adding to cart:', err);
-      alert('Failed to add item to cart.');
+      toast.error('Failed to add item to cart');
     }
   };
 
@@ -86,12 +92,11 @@ const SavedItems = () => {
 
   return (
     <div className="saved-container">
-      <h2 className="saved-title">Saved Items</h2>
+      <h2 className="saved-title">Wishlist</h2>
 
       <div className="saved-grid">
         {savedItems.length === 0 && <p>No saved items available.</p>}
         {savedItems.map(({ productId }) => {
-          // Check if this product is saved
           const isSaved = savedItems.some((item) => item.productId._id === productId._id);
 
           return (
@@ -104,7 +109,7 @@ const SavedItems = () => {
                   e.stopPropagation();
                   handleToggleSave(productId._id);
                 }}
-                title={isSaved ? 'Remove from saved items' : 'Add to saved items'}
+                title={isSaved ? 'Remove from wishlist' : 'Add to wishlist'}
                 role="button"
                 tabIndex={0}
                 onKeyPress={(e) => {
@@ -145,6 +150,9 @@ const SavedItems = () => {
           );
         })}
       </div>
+
+      {/* Toast Container */}
+      <ToastContainer position="top-center" autoClose={2000} hideProgressBar />
     </div>
   );
 };

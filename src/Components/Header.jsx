@@ -23,7 +23,7 @@ const Header = () => {
     { Icon: FaSignOutAlt, to: '/Logout', label: 'Logout' },
   ];
 
-  // ✅ Animate cart badge each time cartCount changes
+  //  Animate cart badge each time cartCount changes
   useEffect(() => {
     if (cartCount > 0) {
       setAnimateCart(true);

@@ -1,18 +1,12 @@
-/* ===============================
-   CART CONTAINER
-================================== */
 .cart-container {
-  max-width: 900px;
+  max-width: 950px;
   margin: 40px auto;
   padding: 20px;
   background: #fff;
   border-radius: 10px;
-  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
 }
 
-/* ===============================
-   TITLE
-================================== */
 .cart-title {
   font-size: 28px;
   font-weight: bold;
@@ -20,9 +14,6 @@
   margin-bottom: 20px;
 }
 
-/* ===============================
-   TOAST POPUP
-================================== */
 .cart-toast {
   background: #4caf50;
   padding: 10px 15px;
@@ -38,9 +29,6 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* ===============================
-   MESSAGES
-================================== */
 .cart-message {
   text-align: center;
   font-size: 18px;
@@ -53,9 +41,6 @@
   font-weight: 600;
 }
 
-/* ===============================
-   TABLE DESIGN
-================================== */
 .cart-table {
   width: 100%;
   display: flex;
@@ -88,9 +73,20 @@
   transform: scale(1.01);
 }
 
-/* ===============================
-   QUANTITY BUTTONS
-================================== */
+.cart-image-cell {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.cart-item-image {
+  width: 60px;
+  height: 55px;
+  border-radius: 8px;
+  object-fit: cover;
+  border: 1px solid #ddd;
+}
+
 .qty-control {
   display: flex;
   align-items: center;
@@ -103,7 +99,6 @@
   background: #ff7a00;
   color: white;
   border: none;
-  outline: none;
   border-radius: 4px;
   cursor: pointer;
   font-size: 18px;
@@ -119,9 +114,6 @@
   font-weight: bold;
 }
 
-/* ===============================
-   REMOVE BUTTON
-================================== */
 .cart-remove-btn {
   background: transparent;
   border: none;
@@ -136,9 +128,6 @@
   transform: scale(1.1);
 }
 
-/* ===============================
-   FOOTER (GRAND TOTAL)
-================================== */
 .cart-footer {
   display: flex;
   justify-content: space-between;
@@ -149,9 +138,6 @@
   font-weight: bold;
 }
 
-/* ===============================
-   CHECKOUT BUTTON
-================================== */
 .checkout-section {
   text-align: center;
   margin-top: 25px;
@@ -172,11 +158,10 @@
   background: #1e7c34;
 }
 
-/* ===============================
+/* ======================================
    RESPONSIVE DESIGN
-================================== */
+====================================== */
 @media (max-width: 768px) {
-
   .cart-header,
   .cart-row {
     grid-template-columns: 1.5fr 1fr 1fr;
@@ -187,7 +172,7 @@
   .cart-header span:nth-child(5),
   .cart-row span:nth-child(3),
   .cart-row span:nth-child(5) {
-    display: none; /* Hide Qty & Remove for small screens */
+    display: none;
   }
 
   .qty-control {
@@ -201,17 +186,24 @@
   .checkout-btn {
     width: 100%;
   }
-}
-.cart-image-cell {
-  display: flex;
-  align-items: center;
-  gap: 12px;
+
+  .cart-item-image {
+    width: 50px;
+    height: 50px;
+  }
 }
 
-.cart-item-image {
-  width: 60px;
-  height: 55px;
-  border-radius: 8px;
-  object-fit: cover;
-  border: 1px solid #ddd;
+@media (max-width: 480px) {
+  .cart-container {
+    margin: 20px 10px;
+    padding: 15px;
+  }
+
+  .cart-title {
+    font-size: 24px;
+  }
+
+  .cart-footer {
+    font-size: 16px;
+  }
 }
